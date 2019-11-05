@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h3>добро пожаловать в {{ title }}.</h3>
+        <p>Тут собрано {{ books|length }} книг из моей коллекции.</p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Год издания</th>
+                    <th scope="col">Автор</th>
+                    <th scope="col">Страна</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td scope="row">{{ forloop.counter }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.ISBN }}</td>
+                    <td>{{ book.description }}</td>
+                    <td>{{ book.year_release }}</td>
+                    <td>{{ book.author.full_name }}</td>
+                    <td>{{ book.author.country }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% for i in [0:10] %}
+        <p> {{ i }}</p>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
