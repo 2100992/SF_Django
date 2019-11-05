@@ -23,6 +23,8 @@
                     <th scope="col">Год издания</th>
                     <th scope="col">Автор</th>
                     <th scope="col">Страна</th>
+                    <th scope="col">Кол-во экземпляров</th>
+                    <th scope="col">Добавить/убавить</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,13 +37,23 @@
                     <td>{{ book.year_release }}</td>
                     <td>{{ book.author.full_name }}</td>
                     <td>{{ book.author.country }}</td>
+                    <td>{{ book.copy_count }}</td>
+                    <td>
+                        <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{book.id}}" />
+                            <input type="submit" class="btn btn-light" value="Увеличить кол-во" />
+                        </form>
+                        <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{book.id}}" />
+                            <input type="submit" class="btn btn-light" value="Уменьшить кол-во">
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% for i in [0:10] %}
-        <p> {{ i }}</p>
-        {% endfor %}
     </div>
 </body>
 
