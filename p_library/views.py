@@ -6,20 +6,38 @@ from django.template import loader
 # Create your views here.
 
 
-def books_list(request):
-    books = Book.objects.all()
-    return HttpResponse(books)
-
-
 def index(request):
     template = loader.get_template('index.html')
     # books_count = Book.objects.all().count()
     books = Book.objects.all()
     biblio_data = {
-        "title": 'мою библиотеку',
+        "title": 'Моя библиотека',
         'books': books,
     }
     return HttpResponse(template.render(biblio_data, request))
+
+
+def books_list(request):
+    template = loader.get_template('books_list.html')
+    # books_count = Book.objects.all().count()
+    books = Book.objects.all()
+    biblio_data = {
+        "title": 'Моя библиотека',
+        'books': books,
+    }
+    return HttpResponse(template.render(biblio_data, request))
+
+def authors_list(request):
+    template = loader.get_template('authors_list.html')
+    authors = Author.objects.all()
+    for author in authors:
+        author.book_counter = Book.objects.filter(author=author).count()
+
+    authors_data = {
+        "title": 'Авторы',
+        'authors': authors,
+    }
+    return HttpResponse(template.render(authors_data, request))
 
 
 def book_increment(request):
@@ -55,6 +73,7 @@ def book_decrement(request):
         return redirect('/index/')
     else:
         return redirect('/index/')
+
 
 def publisher(request):
     template = loader.get_template('publishers.html')
