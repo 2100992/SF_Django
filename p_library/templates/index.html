@@ -23,6 +23,7 @@
                     <th scope="col">Год издания</th>
                     <th scope="col">Автор</th>
                     <th scope="col">Страна</th>
+                    <th scope="col">Издательство</th>
                     <th scope="col">Кол-во экземпляров</th>
                     <th scope="col">Добавить/убавить</th>
                 </tr>
@@ -37,6 +38,7 @@
                     <td>{{ book.year_release }}</td>
                     <td>{{ book.author.full_name }}</td>
                     <td>{{ book.author.country }}</td>
+                    <td>{{ book.publisher.name }}</td>
                     <td>{{ book.copy_count }}</td>
                     <td>
                         <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
