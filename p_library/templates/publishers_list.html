@@ -17,10 +17,13 @@
                 <td>{{ publisher.country }}</td>
             </tr>
             <tr>
-                <td colspan="4">
-                    {% for book in publisher.books %}
-                        <p>{{book}}</p>
-                    {% endfor %}
+                <td></td>
+                <td colspan="3">
+                    <p>Издательством представленны следующие книги:<br>
+                        {% for book in publisher.books %}
+                            - {{book}} <br>
+                        {% endfor %}
+                    </p>
                 </td>
             </tr>
             {% endfor %}
