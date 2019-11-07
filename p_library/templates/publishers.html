@@ -1,39 +1,12 @@
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ title }}</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
+{% block title %}{{ title }}{% endblock %}
 
-<body>
-    <div class="container">
-        <h3>Добро пожаловать на страницу с издательствами.</h3>
-        <p>Книги в моей библиотеке выпущены {{ publishers|length }} издательствами.</p>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">№</th>
-                    <th scope="col">Название</th>
-                    <th scope="col">Описание</th>
-                    <th scope="col">Страна</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for publisher in publishers %}
-                <tr>
-                    <td scope="row">{{ forloop.counter }}</td>
-                    <td>{{ publisher.name }}</td>
-                    <td>{{ publisher.description }}</td>
-                    <td>{{ publisher.country }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+{% block content %}
+    <div>
+        <h3>Добро пожаловать в библиотеку.</h3>
+        <p>Книги в из данной библиотеки выпущены {{ publishers|length }} издательствами.</p>
+        {% include 'publishers_list.html' %}
     </div>
-</body>
-
-</html>
+    <br>
+{% endblock %}

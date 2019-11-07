@@ -1,0 +1,29 @@
+<div>
+    <table class="table table-bordered table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Название</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Страна</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publisher in publishers %}
+            <tr>
+                <td scope="row">{{ forloop.counter }}</td>
+                <td>{{ publisher.name }}</td>
+                <td>{{ publisher.description }}</td>
+                <td>{{ publisher.country }}</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    {% for book in publisher.books %}
+                        <p>{{book}}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

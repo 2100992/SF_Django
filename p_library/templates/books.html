@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Добро пожаловать в библиотеку.</h3>
+        <p>Тут собрано {{ books|length }} книг.</p>
+        {% include 'books_list.html' %}
+        <br>
+    </div>
+{% endblock %}

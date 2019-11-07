@@ -1,32 +1,24 @@
-{% extends "base.html" %}
-
-{% block title %}{{ title }}{% endblock %}
-
-{% block content %}
-    <div class="container">
-        <h3>Добро пожаловать в мою библиотеку.</h3>
-        <p>В ней доступны книги {{ authors|length }} различных авторов.</p>
-        <table class="table table-bordered table-dark table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">№</th>
-                    <th scope="col">Имя</th>
-                    <th scope="col">Год рождения</th>
-                    <th scope="col">Страна</th>
-                    <th scope="col">Книг в библиотеке</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for author in authors %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ author.full_name }}</td>
-                    <td>{{ author.birth_year }}</td>
-                    <td>{{ author.country }}</td>
-                    <td>{{ author.book_counter }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% endblock %}
+<div>
+    <table class="table table-bordered table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Год рождения</th>
+                <th scope="col">Страна</th>
+                <th scope="col">Книг в библиотеке</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for author in authors %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ author.full_name }}</td>
+                <td>{{ author.birth_year }}</td>
+                <td>{{ author.country }}</td>
+                <td>{{ author.book_counter }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -11,18 +11,36 @@
         crossorigin="anonymous"
         >
 </head>
-<body background='http://artguide.com/storage/post/719/wide_detail_picture.jpg'>
-    <div id="sidebar">
-        {% block sidebar %}
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/publishers/">Publishers</a></li>
-        </ul>
-        {% endblock %}
+
+<body>
+    <div
+        style="
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url(http://artguide.com/storage/post/719/wide_detail_picture.jpg);
+            background-position: center;
+            background-size: cover;
+            "
+    ></div>
+    <div class="container bg-light">
+        {% block navbar %}{% include 'navbar.html' %}{% endblock %}
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
     </div>
 
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+<script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+    crossorigin="anonymous"></script>
 </body>
 </html>

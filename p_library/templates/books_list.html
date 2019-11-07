@@ -1,53 +1,45 @@
-{% extends "base.html" %}
-
-{% block title %}{{ title }}{% endblock %}
-
-{% block content %}
-    <div class="container">
-        <h3>Добро пожаловать в мою библиотеку.</h3>
-        <p>Тут собрано {{ books|length }} книг из моей коллекции.</p>
-        <table class="table table-bordered table-dark table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">№</th>
-                    <th scope="col">Название</th>
-                    <th scope="col">ISBN</th>
-                    <th scope="col">Описание</th>
-                    <th scope="col">Год издания</th>
-                    <th scope="col">Автор</th>
-                    <th scope="col">Страна</th>
-                    <th scope="col">Издательство</th>
-                    <th scope="col">Кол-во экземпляров</th>
-                    <th scope="col">Добавить/убавить</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for book in books %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</td>
-                    <td>{{ book.title }}</td>
-                    <td>{{ book.ISBN }}</td>
-                    <td>{{ book.description }}</td>
-                    <td>{{ book.year_release }}</td>
-                    <td>{{ book.author.full_name }}</td>
-                    <td>{{ book.author.country }}</td>
-                    <td>{{ book.publisher.name }}</td>
-                    <td>{{ book.copy_count }}</td>
-                    <td>
-                        <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{book.id}}" />
-                            <input type="submit" class="btn btn-light" value="Увеличить кол-во" />
-                        </form>
-                        <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{book.id}}" />
-                            <input type="submit" class="btn btn-light" value="Уменьшить кол-во">
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% endblock %}
+<div>
+    <table class="table table-bordered table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Название</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Год издания</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Страна</th>
+                <th scope="col">Издательство</th>
+                <th scope="col">Кол-во экземпляров</th>
+                <th scope="col">Добавить/ убавить</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.ISBN }}</td>
+                <td>{{ book.description }}</td>
+                <td>{{ book.year_release }}</td>
+                <td>{{ book.author.full_name }}</td>
+                <td>{{ book.author.country }}</td>
+                <td>{{ book.publisher.name }}</td>
+                <td>{{ book.copy_count }}</td>
+                <td>
+                    <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{book.id}}" />
+                        <input type="submit" class="btn btn-light" value="+" />
+                    </form>
+                    <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{book.id}}" />
+                        <input type="submit" class="btn btn-light" value="-">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
