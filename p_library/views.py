@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from p_library.models import Book, Author, Publisher
 from django.template import loader
+from p_library.forms import AuthorForm
+from django.views.generic import CreateView, ListView
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -78,7 +81,7 @@ def authors(request):
 def publisher(request):
     template = loader.get_template('publishers.html')
     # books_count = Book.objects.all().count()
-    publishers = Publisher.objects.all()
+    publishers = Publisher.objects.all() #.prefetch_related('books')
 
     for publisher in publishers:
         publisher.books = Book.objects.filter(publisher=publisher)
@@ -88,3 +91,13 @@ def publisher(request):
         'publishers': publishers,
     }
     return HttpResponse(template.render(publishers_data, request))
+
+class AuthorEdit(CreateView):
+    model = Author
+    form_class = AuthorForm
+    success_url = reverse_lazy('p_library:a_list')
+    template_name = 'a_edit.html'
+
+class AuthorList(ListView):
+    model = Author
+    template_name = 'a_list.html'

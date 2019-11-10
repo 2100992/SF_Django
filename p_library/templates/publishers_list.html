@@ -4,7 +4,7 @@
             <tr>
                 <th scope="col">№</th>
                 <th scope="col">Название</th>
-                <th scope="col">Описание</th>
+                {% comment %} <th scope="col">Описание</th> {% endcomment %}
                 <th scope="col">Страна</th>
             </tr>
         </thead>
@@ -13,7 +13,7 @@
             <tr>
                 <td scope="row">{{ forloop.counter }}</td>
                 <td>{{ publisher.name }}</td>
-                <td>{{ publisher.description }}</td>
+                {% comment %} <td>{{ publisher.description }}</td> {% endcomment %}
                 <td>{{ publisher.country }}</td>
             </tr>
             <tr>
