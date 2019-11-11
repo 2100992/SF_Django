@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "p_library/base.html" %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -6,7 +6,7 @@
     <div>
         <h3>Добро пожаловать в библиотеку.</h3>
         <p>Книги в из данной библиотеки выпущены {{ publishers|length }} издательствами.</p>
-        {% include 'publishers_list.html' %}
+        {% include 'p_library/publishers_list.html' %}
     </div>
     <br>
 {% endblock %}

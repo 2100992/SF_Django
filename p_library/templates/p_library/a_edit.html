@@ -1,0 +1,16 @@
+{% extends "p_library/base.html" %}
+
+{% block title %}Форма создания и редактирования Авторов{% endblock %}
+
+{% block content %}
+<div class='container'>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class='form-group'>
+            {{form.as_p}}
+            <input type="submit" value="Сохранить">
+        </div>
+    </form>
+    <br>
+</div>
+{% endblock %}

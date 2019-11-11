@@ -1,0 +1,14 @@
+{% extends "p_library/base.html" %}
+
+{% block title %}Create multiple authors{% endblock %}
+
+{% block content %}
+    <form method="post">  
+        {% csrf_token %}  
+        {% for form in author_formset %}  
+            {{ form.as_ul }}  
+            <br>  
+        {% endfor %}
+        <input type="submit" value="Сохранить"/>  
+    </form> 
+{% endblock %}
