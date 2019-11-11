@@ -95,9 +95,13 @@ def publisher(request):
 class AuthorEdit(CreateView):
     model = Author
     form_class = AuthorForm
-    success_url = reverse_lazy('p_library:a_list')
+    # success_url = '/library/authors/'
+    success_url = reverse_lazy('p_library:author_list')
     template_name = 'a_edit.html'
 
 class AuthorList(ListView):
     model = Author
     template_name = 'a_list.html'
+
+    # def __init__(self, *args, **kwargs):
+    #     print(self)

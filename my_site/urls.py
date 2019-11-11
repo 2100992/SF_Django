@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from p_library import views
+from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('publishers/', views.publisher),
     path('index/book_increment/', views.book_increment),
     path('index/book_decrement/', views.book_decrement),
+    path('library/', include('p_library.urls')),
 ]
