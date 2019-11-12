@@ -45,3 +45,23 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Subscriber(models.Model):
+    full_name = models.TextField()
+    library_card = models.CharField(max_length=13)
+
+    def __str__(self):
+        return self.full_name
+
+
+class BooksCopy(models.Model):
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='books_copy',
+    )
+    
+    notes = models.TextField()
