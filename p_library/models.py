@@ -28,8 +28,20 @@ class Book(models.Model):
     year_release = models.SmallIntegerField()
     copy_count = models.SmallIntegerField(default=1)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    publisher = models.ForeignKey(Publisher, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(
+        Author,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='books',
+    )
+    publisher = models.ForeignKey(
+        Publisher,
+        on_delete=models.DO_NOTHING,
+        null=True,
+        blank=True,
+        related_name='books',
+    )
 
     def __str__(self):
         return self.title

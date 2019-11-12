@@ -20,7 +20,7 @@
                 <td></td>
                 <td colspan="3">
                     <p>Издательством представленны следующие книги:<br>
-                        {% for book in publisher.books %}
+                        {% for book in publisher.books.all %}
                             - {{book}} <br>
                         {% endfor %}
                     </p>
