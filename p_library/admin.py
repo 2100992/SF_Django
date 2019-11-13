@@ -22,11 +22,12 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(LibraryUser)
 class LibraryUserUserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('full_name', 'library_card')
 
 @admin.register(BooksCopy)
 class BooksCopyAdmin(admin.ModelAdmin):
     list_display = ('book', 'holder')
-    pass
+    readonly_fields = ('uuid',)
+    # fields = ('book', 'holder', 'notes')
 
 # Register your models here.

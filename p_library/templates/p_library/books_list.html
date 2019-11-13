@@ -22,8 +22,12 @@
                 <td>{{ book.ISBN }}</td>
                 <td>{{ book.description }}</td>
                 <td>{{ book.year_release }}</td>
-                <td>{{ book.author.full_name }}</td>
-                <td>{{ book.author.country }}</td>
+                <td>
+                    {% for author in book.author %}
+                        <p>{{ author.full_name }}</p>
+                    {% endfor %}
+                </td>
+                <td>{{ book.country }}</td>
                 <td>{{ book.publisher.name }}</td>
                 <td>{{ book.copy_count }}</td>
                 <td>
