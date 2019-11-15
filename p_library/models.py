@@ -3,6 +3,7 @@ from django.db import models
 import uuid
 from slugify import slugify
 
+
 def unique_slug(model, text, counter=0):
     str_counter = ''
     if counter:
@@ -15,6 +16,16 @@ def unique_slug(model, text, counter=0):
 
 # Create your models here.
 
+class Tag(models.Model):
+    title = models.CharField(
+        max_length=50,
+        db_index=True,
+        unique=True
+    )
+
+    def __str__(self):
+        return self.title
+
 
 class Author(models.Model):
     full_name = models.CharField(max_length=150, db_index=True)
@@ -22,6 +33,11 @@ class Author(models.Model):
     birth_year = models.SmallIntegerField()
     country = models.CharField(max_length=2)
     description = models.TextField(null=True, blank=True)
+    tag = models.ManyToManyField(
+        Tag,
+        null=True,
+        blank=True,
+    )
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -37,6 +53,11 @@ class Publisher(models.Model):
     slug = models.SlugField(default='_', max_length=150, unique=True)
     description = models.TextField(null=True, blank=True)
     country = models.CharField(max_length=2)
+    tag = models.ManyToManyField(
+        Tag,
+        null=True,
+        blank=True,
+    )
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -62,6 +83,11 @@ class Book(models.Model):
         null=True,
         blank=True,
         related_name='books',
+    )
+    tag = models.ManyToManyField(
+        Tag,
+        null=True,
+        blank=True,
     )
 
     def save(self, *args, **kwargs):
@@ -110,3 +136,4 @@ class BooksCopy(models.Model):
 
     def __str__(self):
         return self.book.title
+

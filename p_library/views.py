@@ -1,6 +1,6 @@
 from sys import prefix
 from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
 from p_library.models import Book, Author, Publisher
 from django.template import loader
 from p_library.forms import AuthorForm, BookForm
@@ -160,3 +160,14 @@ def books_authors_create_many(request):
             'book_formset': book_formset,
         }
     )
+
+def book_detail(request, slug):
+    books = Book.objects.filter(slug__iexact=slug)
+    if books.count() == 1:
+        book_data = {
+            'title': books.first().title,
+            'book': books.first()
+        }
+        return render(request, 'p_library/book.html', context=book_data)
+    else:
+        return HttpResponseNotFound('<h1>No Page Here</h1>')

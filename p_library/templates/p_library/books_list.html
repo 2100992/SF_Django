@@ -1,49 +1,28 @@
 <div>
-    <table class="table table-bordered table-dark table-striped">
-        <thead>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">Название</th>
-                <th scope="col">ISBN</th>
-                <th scope="col">Описание</th>
-                <th scope="col">Год издания</th>
-                <th scope="col">Автор</th>
-                <th scope="col">Страна</th>
-                <th scope="col">Издательство</th>
-                <th scope="col">Кол-во экземпляров</th>
-                <th scope="col">Добавить/ убавить</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for book in books %}
-            <tr>
-                <th scope="row">{{ forloop.counter }}</td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.ISBN }}</td>
-                <td>{{ book.description }}</td>
-                <td>{{ book.year_release }}</td>
-                <td>
-                    {% for author in book.author %}
-                        <p>{{ author.full_name }}</p>
+    <div class="mt-3">
+        <div class="card text-white bg-secondary">
+            <div class="card-body row">
+                <p class="col-1">№</p>
+                <p class="col">Название</p>
+                <p class="col">Авторы</p>
+                <p class="col-2">Издательство</p>
+                <p class="col-2">ISBN</p>
+            </div>
+        </div>
+        {% for book in books %}
+        <div class="card">
+            <div class="card-body row">
+                <p class="col-1">{{ forloop.counter }}</p>
+                <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}">{{ book.title }}</a></p>
+                <div class="col">
+                    {% for author in book.author.all %}
+                    <p>{{ author.full_name }} ({{ author.country }})</p>
                     {% endfor %}
-                </td>
-                <td>{{ book.country }}</td>
-                <td>{{ book.publisher.name }}</td>
-                <td>{{ book.copy_count }}</td>
-                <td>
-                    <form action="book_increment/" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="hidden" name="id" value="{{book.id}}" />
-                        <input type="submit" class="btn btn-light" value="+" />
-                    </form>
-                    <form action="book_decrement/" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="hidden" name="id" value="{{book.id}}" />
-                        <input type="submit" class="btn btn-light" value="-">
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                </div>
+                <p class="col-2">{{ book.publisher.name }} ({{ book.publisher.country }})</p>
+                <p class="col-2">{{ book.ISBN }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
