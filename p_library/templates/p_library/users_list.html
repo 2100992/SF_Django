@@ -7,6 +7,7 @@
                 <p class="col">Дата рождения</p>
                 <p class="col-2">Читательский билет</p>
                 <p class="col-2">Примечания</p>
+                <p class="col-2">Книг в пользовании</p>
             </div>
         </div>
         {% for user in users %}
@@ -17,6 +18,7 @@
                 <p class="col">{{ user.birth_date }}</p>
                 <p class="col-2">{{ user.library_card }}</p>
                 <p class="col-2">{{ user.description }}</p>
+                <p class="col-2">XXX шт.</p>
             </div>
         </div>
         {% endfor %}

@@ -5,8 +5,8 @@
                 <p class="col-1">№</p>
                 <p class="col">Название</p>
                 <p class="col">Авторы</p>
-                <p class="col-2">Издательство</p>
                 <p class="col-2">ISBN</p>
+                <p class="col-2">Доступно</p>
             </div>
         </div>
         {% for book in books %}
@@ -19,8 +19,8 @@
                     <p>{{ author.full_name }} ({{ author.country }})</p>
                     {% endfor %}
                 </div>
-                <p class="col-2">{{ book.publisher.name }} ({{ book.publisher.country }})</p>
                 <p class="col-2">{{ book.ISBN }}</p>
+                <p class="col-2">XXX шт.</p>
             </div>
         </div>
         {% endfor %}
