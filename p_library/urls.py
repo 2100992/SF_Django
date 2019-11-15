@@ -16,4 +16,5 @@ urlpatterns = [
     path('author/create_many/', views.author_create_many, name='author_create_many'),
     path('publishers/', views.publisher, name='publishers'),
     path('f_authors/', views.AuthorList.as_view(), name='authors_list'),
+    path('users/', views.library_users, name='library_users_url')
 ]

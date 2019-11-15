@@ -1,0 +1,12 @@
+{% extends "p_library/base.html" %}
+
+{% block title %}Пользователи{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Добро пожаловать в библиотеку.</h3>
+        <p>В нашем читальном зале зарегистрированно уже {{ users|length }} пользователей.</p>
+        {% include 'p_library/users_list.html' %}
+        <br>
+    </div>
+{% endblock %}

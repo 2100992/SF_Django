@@ -1,7 +1,7 @@
 from sys import prefix
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
-from p_library.models import Book, Author, Publisher
+from p_library.models import Book, Author, Publisher, LibraryUser
 from django.template import loader
 from p_library.forms import AuthorForm, BookForm
 from django.views.generic import CreateView, ListView
@@ -171,3 +171,10 @@ def book_detail(request, slug):
         return render(request, 'p_library/book.html', context=book_data)
     else:
         return HttpResponseNotFound('<h1>No Page Here</h1>')
+
+
+def library_users(request):
+    users_data = {
+        'users': LibraryUser.objects.all(),
+    }
+    return render(request, 'p_library/users.html', context=users_data)
