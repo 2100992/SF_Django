@@ -1,0 +1,12 @@
+{% extends "p_library/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>Добро пожаловать в библиотеку.</h3>
+        <p>Тут собрано {{ books|length }} книг.</p>
+        {% include 'p_library/books_list.html' %}
+        <br>
+    </div>
+{% endblock %}

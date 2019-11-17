@@ -4,13 +4,13 @@ import uuid
 from slugify import slugify
 
 
-def unique_slug(model, text, counter=0):
+def make_unique_slug(model, text, counter=0):
     str_counter = ''
     if counter:
         str_counter = str(counter)
     if model.objects.filter(slug=text+str_counter).count():
         counter += 1
-        text = unique_slug(model, text, counter)
+        text = make_unique_slug(model, text, counter)
     return text + str_counter
 
 
@@ -22,6 +22,12 @@ class Tag(models.Model):
         db_index=True,
         unique=True
     )
+    slug = models.SlugField(default='_', max_length=50, unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = make_unique_slug(Tag, slugify(self.title))
+        super(Tag, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -30,18 +36,17 @@ class Tag(models.Model):
 class Author(models.Model):
     full_name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(default='_', max_length=150, unique=True)
-    birth_year = models.SmallIntegerField()
-    country = models.CharField(max_length=2)
+    birth_year = models.SmallIntegerField(null=True, blank=True,)
+    country = models.CharField(max_length=2, null=True, blank=True,)
     description = models.TextField(null=True, blank=True)
     tag = models.ManyToManyField(
         Tag,
-        null=True,
         blank=True,
     )
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = unique_slug(Author, slugify(self.full_name))
+            self.slug = make_unique_slug(Author, slugify(self.full_name))
         super(Author, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -52,16 +57,15 @@ class Publisher(models.Model):
     name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(default='_', max_length=150, unique=True)
     description = models.TextField(null=True, blank=True)
-    country = models.CharField(max_length=2)
+    country = models.CharField(max_length=2, null=True, blank=True,)
     tag = models.ManyToManyField(
         Tag,
-        null=True,
         blank=True,
     )
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = unique_slug(Publisher, slugify(self.name))
+            self.slug = make_unique_slug(Publisher, slugify(self.name))
         super(Publisher, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -73,10 +77,10 @@ class Book(models.Model):
     title = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(default='_', max_length=150, unique=True)
     description = models.TextField(null=True, blank=True)
-    year_release = models.SmallIntegerField()
-    copy_count = models.SmallIntegerField(default=1)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    author = models.ManyToManyField(Author)
+    year_release = models.SmallIntegerField(null=True, blank=True,)
+    copy_count = models.SmallIntegerField(null=True, blank=True,)
+    price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,)
+    author = models.ManyToManyField(Author, related_name='book')
     publisher = models.ForeignKey(
         Publisher,
         on_delete=models.DO_NOTHING,
@@ -86,22 +90,22 @@ class Book(models.Model):
     )
     tag = models.ManyToManyField(
         Tag,
-        null=True,
         blank=True,
     )
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = unique_slug(Book, slugify(self.title))
+            self.slug = make_unique_slug(Book, slugify(self.title))
         super(Book, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
 
-class LibraryUser(models.Model):
+class User(models.Model):
     # Таблица пользователей библиотеки
     full_name = models.CharField(max_length=150, db_index=True)
+    slug = models.SlugField(default='_', max_length=150, unique=True)
     birth_date = models.DateField(null=True, blank=True)
     library_card = models.CharField(
         max_length=13,
@@ -110,6 +114,11 @@ class LibraryUser(models.Model):
         unique=True
     )
     description = models.TextField(null=True, blank=True,)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = make_unique_slug(Book, slugify(self.full_name))
+        super(User, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.full_name
@@ -126,7 +135,7 @@ class BooksCopy(models.Model):
         related_name='books_copy',
     )
     holder = models.ForeignKey(
-        LibraryUser,
+        User,
         on_delete=models.DO_NOTHING,
         null=True,
         blank=True,

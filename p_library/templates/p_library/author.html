@@ -8,26 +8,21 @@
         <div class="col">
             <div class="card">
                 <div class="card-header text-white bg-secondary">
-                    {{ book.title }}
+                    {{ author.full_name }}
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <p class="card-text">{{ book.description }}</p>
+                            <p class="card-text">{{ author.description }}</p>
                         </div>
                         <div class="col-4">
-                            <h5>Издатель:</h5>
-                            <p class="card-text">{{ book.publisher.name }} ({{ book.publisher.country }})</p>
-                            <h5>ISBN:</h5>
-                            <p class="card-text">{{ book.ISBN }}</p>
-                            <div>
-                                <h5>Авторство:</h5>
-                                {% for author in book.author.all %}
-                                <p>{{ author.full_name }} ({{ author.country }})</p>
-                                {% endfor %}
-                            </div>
+                            <h5>Год рождения:</h5>
+                            <p class="card-text">{{ author.birth_year }}</p>
+                            <h5>Страна рождения:</h5>
+                            <p class="card-text">{{ author.country }}</p>
+                            <br>
                             <p>
-                                {% for tag in book.tag.all %}
+                                {% for tag in author.tag.all %}
                                 #{{ tag.title }}
                                 {% endfor %}
                             </p>

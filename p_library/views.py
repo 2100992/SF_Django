@@ -1,13 +1,15 @@
 from sys import prefix
 from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, get_list_or_404
 from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
-from p_library.models import Book, Author, Publisher, LibraryUser
+from p_library.models import *
 from django.template import loader
 from p_library.forms import AuthorForm, BookForm
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, View
 from django.urls import reverse_lazy
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
+from .utils import ObjectDetailMixin, ObjectsListMixin
 
 # Create your views here.
 
@@ -33,13 +35,57 @@ def library(request):
 #     }
 #     return HttpResponse(template.render(biblio_data, request))
 
-def books(request):
-    books = Book.objects.all()
-    biblio_data = {
-        "title": 'Моя библиотека',
-        'books': books,
-    }
-    return render(request, 'p_library/books.html', context=biblio_data)
+# def books(request):
+#     books = Book.objects.all()
+#     biblio_data = {
+#         "title": 'Моя библиотека',
+#         'books': books,
+#     }
+#     return render(request, 'p_library/books.html', context=biblio_data)
+
+
+class Books(View):
+    model = Book
+    template = 'p_library/books.html'
+    title = 'Книги'
+    
+    def get(self, request):
+        books = get_list_or_404(self.model)
+        for book in books:
+            book.available_copies = book.books_copy.all().count() - book.books_copy.all().filter(holder=None).count()
+        obj_data = {
+            self.model.__name__.lower(): books
+        }
+        return render(request, self.template, context=obj_data)
+
+class BooksCopies(ObjectsListMixin, View):
+    model = BooksCopy
+    template = 'p_library/bookscopies.html'
+    title = 'Экземпляры книг'
+
+
+class Authors(ObjectsListMixin, View):
+    model = Author
+    template = 'p_library/authors.html'
+    title = 'Авторы'
+
+
+class Users(ObjectsListMixin, View):
+    model = User
+    template = 'p_library/users.html'
+    title = 'Пользователи'
+
+
+class Tags(ObjectsListMixin, View):
+    model = Tag
+    template = 'p_library/tags.html'
+    title = 'Тэги'
+
+
+class Publishers(ObjectsListMixin, View):
+    model = Publisher
+    template = 'p_library/publishers.html'
+    title = 'Издатели'
 
 
 def book_increment(request):
@@ -161,6 +207,11 @@ def books_authors_create_many(request):
         }
     )
 
+# Далее две эквивалентные вьюхи
+# def и class based
+# для работы воторой нежно urls внести изменение
+
+
 def book_detail(request, slug):
     books = Book.objects.filter(slug__iexact=slug)
     if books.count() == 1:
@@ -172,9 +223,45 @@ def book_detail(request, slug):
     else:
         return HttpResponseNotFound('<h1>No Page Here</h1>')
 
+# Эту вьюху заменили на аналогичную с миксинами
+# class BookDetail(View):
+#     def get(self, request, slug):
+#         book = get_object_or_404(Book, slug__iexact=slug)
+#         return render(request, 'p_library/book.html', context={'book': book})
 
-def library_users(request):
+
+class BookDetail(ObjectDetailMixin, View):
+    model = Book
+    template = 'p_library/book.html'
+
+
+class TagDetail(ObjectDetailMixin, View):
+    model = Tag
+    template = 'p_library/tag.html'
+
+
+class UserDetail(ObjectDetailMixin, View):
+    model = User
+    template = 'p_library/user.html'
+
+
+class PublisherDetail(ObjectDetailMixin, View):
+    model = Publisher
+    template = 'p_library/publisher.html'
+
+
+class AuthorDetail(ObjectDetailMixin, View):
+    model = Author
+    template = 'p_library/author.html'
+
+
+class BooksCopyDetail(ObjectDetailMixin, View):
+    model = BooksCopy
+    template = 'p_library/bookscopy.html'
+
+
+def users(request):
     users_data = {
-        'users': LibraryUser.objects.all(),
+        'users': User.objects.all(),
     }
     return render(request, 'p_library/users.html', context=users_data)

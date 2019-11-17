@@ -1,8 +1,7 @@
 from codecs import register
 from django.contrib import admin
 
-from p_library.models import Author, Book, BooksCopy, LibraryUser, Publisher
-
+from p_library.models import *
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -20,8 +19,8 @@ class AuthorAdmin(admin.ModelAdmin):
     list_filter = ('name',)
     pass
 
-@admin.register(LibraryUser)
-class LibraryUserUserAdmin(admin.ModelAdmin):
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'library_card')
 
 @admin.register(BooksCopy)
@@ -29,5 +28,9 @@ class BooksCopyAdmin(admin.ModelAdmin):
     list_display = ('book', 'holder')
     readonly_fields = ('uuid',)
     # fields = ('book', 'holder', 'notes')
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    pass
 
 # Register your models here.
