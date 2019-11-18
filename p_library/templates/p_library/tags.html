@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body row">
                     {% for tag in tag %}
-                    <p class="col-3"><a href="{% url 'p_library:tag_detail_url' tag.slug %}">#{{ tag.title }}</a></p>
+                    <p class="col-3"><a href="{% url 'p_library:tag_detail_url' tag.slug %}" class="list-group-item-action">#{{ tag.title }}</a></p>
                     {% endfor %}
                 </div>
             </div>

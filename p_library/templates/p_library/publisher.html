@@ -21,7 +21,7 @@
                             <br>
                             <p>
                             {% for tag in publisher.tag.all %}
-                            <a href="{% url 'p_library:tag_detail_url' tag.slug %}">#{{ tag.title }}</a>
+                            <a href="{% url 'p_library:tag_detail_url' tag.slug %}" class="list-group-item-action">#{{ tag.title }}</a>
                             {% endfor %}
                             </p>
                         </div>
@@ -52,7 +52,7 @@
         <div class="card">
             <div class="card-body row">
                 <p class="col-1">{{ forloop.counter }}</p>
-                <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}">{{ book.title }}</a></p>
+                <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}" class="list-group-item-action">{{ book.title }}</a></p>
                 <div class="col-2">
                     {% for author in book.author.all %}
                     <p>{{ author.full_name }} ({{ author.country }})</p>

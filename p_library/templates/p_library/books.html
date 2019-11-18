@@ -21,10 +21,10 @@
             <div class="card">
                 <div class="card-body row">
                     <p class="col-1">{{ forloop.counter }}</p>
-                    <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}">{{ book.title }}</a></p>
+                    <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}" class="list-group-item-action">{{ book.title }}</a></p>
                     <div class="col-2">
                         {% for author in book.author.all %}
-                        <p><a href="{% url 'p_library:author_detail_url' author.slug %}">{{ author.full_name }}</a> ({{ author.country }})</p>
+                        <p><a href="{% url 'p_library:author_detail_url' author.slug %}" class="list-group-item-action">{{ author.full_name }}</a> ({{ author.country }})</p>
                         {% endfor %}
                     </div>
                     <p class="col-2">{{ book.ISBN }}</p>

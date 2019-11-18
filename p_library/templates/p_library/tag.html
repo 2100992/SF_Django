@@ -20,7 +20,7 @@
         <div class="card">
             <div class="card-body row">
                 <p class="col-1">{{ forloop.counter }}</p>
-                <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}">{{ book.title }}</a></p>
+                <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}" class="list-group-item-action">{{ book.title }}</a></p>
                 <div class="col-2">
                     {% for author in book.author.all %}
                     <p>{{ author.full_name }} ({{ author.country }})</p>
@@ -51,7 +51,7 @@
                 <div class="card-body row">
                     <p class="col-1">{{ forloop.counter }}</p>
                     <p class="col"><a
-                            href="{% url 'p_library:author_detail_url' author.slug %}">{{ author.full_name }}</a></p>
+                            href="{% url 'p_library:author_detail_url' author.slug %}" class="list-group-item-action">{{ author.full_name }}</a></p>
                     <p class="col-2">{{ author.birth_year }}</p>
                     <p class="col-2">{{ author.country }}</p>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="card-body row">
                     <p class="col-1">{{ forloop.counter }}</p>
                     <p class="col">
-                        <a href="{% url 'p_library:publisher_detail_url' publisher.slug %}">
+                        <a href="{% url 'p_library:publisher_detail_url' publisher.slug %}" class="list-group-item-action">
                             {{ publisher.name }}
                         </a>
                     </p>

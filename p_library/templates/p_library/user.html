@@ -46,8 +46,8 @@
         <div class="card">
             <div class="card-body row">
                 <p class="col-1">{{ forloop.counter }}</p>
-                <p class="col"><a href="{% url 'p_library:book_detail_url' books_copy.book.slug %}">{{ books_copy.book.title }}</a></p>
-                <p class="col-3"><a href="{% url 'p_library:copy_detail_url' books_copy.uuid %}">{{ books_copy.uuid }}</a></p>
+                <p class="col"><a href="{% url 'p_library:book_detail_url' books_copy.book.slug %}" class="list-group-item-action">{{ books_copy.book.title }}</a></p>
+                <p class="col-3"><a href="{% url 'p_library:copy_detail_url' books_copy.uuid %}" class="list-group-item-action">{{ books_copy.uuid }}</a></p>
             </div>
         </div>
         {% endfor %}

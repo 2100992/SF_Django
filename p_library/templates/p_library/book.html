@@ -17,23 +17,24 @@
                         </div>
                         <div class="col-4">
                             <h5>Издатель:</h5>
-                            <p class="card-text">{{ book.publisher.name }} ({{ book.publisher.country }})</p>
+                            {% if book.publisher %}
+                            <p class="card-text"><a href="{% url 'p_library:publisher_detail_url' book.publisher.slug %}" class="list-group-item-action">{{ book.publisher.name }}</a> ({{ book.publisher.country }})</p>
+                            {% endif %}
                             <h5>ISBN:</h5>
                             <p class="card-text">{{ book.ISBN }}</p>
                             <div>
                                 <h5>Авторство:</h5>
                                 {% for author in book.author.all %}
-                                <p>{{ author.full_name }} ({{ author.country }})</p>
+                                <p><a href="{% url 'p_library:author_detail_url' author.slug %}" class="list-group-item-action">{{ author.full_name }}</a> ({{ author.country }})</p>
                                 {% endfor %}
                             </div>
                             <p>
                                 {% for tag in book.tag.all %}
-                                <a href="{% url 'p_library:tag_detail_url' tag.slug %}">#{{ tag.title }}</a>
+                                <a href="{% url 'p_library:tag_detail_url' tag.slug %}" class="list-group-item-action">#{{ tag.title }}</a>
                                 {% endfor %}
                             </p>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
@@ -44,6 +45,7 @@
         </div>
     </div>
 </div>
+<h3>Экземпляры книги:</h3>
 <div>
     <div class="mt-3">
         <div class="card text-white bg-secondary">
@@ -57,11 +59,11 @@
         <div class="card">
             <div class="card-body row">
                 <p class="col-1">{{ forloop.counter }}</p>
-                <p class="col"><a href="{% url 'p_library:copy_detail_url' books_copy.uuid %}">{{ books_copy.uuid }}</a></p>
+                <p class="col"><a href="{% url 'p_library:copy_detail_url' books_copy.uuid %}" class="list-group-item-action">{{ books_copy.uuid }}</a></p>
                 {% if not books_copy.holder %}
                     <p class="col-2">Главное хранилище</p>
                 {% else %}
-                    <p class="col-2"><a href="{% url 'p_library:user_detail_url' books_copy.holder.slug %}">{{ books_copy.holder.full_name }}</a></p>
+                    <p class="col-2"><a href="{% url 'p_library:user_detail_url' books_copy.holder.slug %}" class="list-group-item-action">{{ books_copy.holder.full_name }}</a></p>
                 {%  endif %}
             </div>
         </div>

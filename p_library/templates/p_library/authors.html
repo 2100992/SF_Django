@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-body row">
                     <p class="col-1">{{ forloop.counter }}</p>
-                    <p class="col"><a href="{% url 'p_library:author_detail_url' author.slug %}">{{ author.full_name }}</a></p>
+                    <p class="col"><a href="{% url 'p_library:author_detail_url' author.slug %}" class="list-group-item-action">{{ author.full_name }}</a></p>
                     <p class="col-2">{{ author.birth_year }}</p>
                     <p class="col-2">{{ author.country }}</p>
                     <p class="col-2">{{ author.book.all|length }} шт.</p>

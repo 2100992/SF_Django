@@ -20,13 +20,11 @@
                             {% if not bookscopy.holder %}
                                 <p>Главное хранилище</p>
                             {% else %}
-                                <p><a href="{% url 'p_library:user_detail_url' bookscopy.holder.slug %}">{{ bookscopy.holder.full_name }}</a></p>
+                                <p><a href="{% url 'p_library:user_detail_url' bookscopy.holder.slug %}" class="list-group-item-action">{{ bookscopy.holder.full_name }}</a></p>
                             {%  endif %}
                             <br>
-
                         </div>
                     </div>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>

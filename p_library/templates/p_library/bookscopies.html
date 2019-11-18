@@ -20,11 +20,11 @@
             <div class="card">
                 <div class="card-body row">
                     <p class="col-1">{{ forloop.counter }}</p>
-                    <p class="col"><a href="{% url 'p_library:copy_detail_url' bookscopy.uuid %}">{{ bookscopy.book.title }}</a></p>
+                    <p class="col"><a href="{% url 'p_library:copy_detail_url' bookscopy.uuid %}" class="list-group-item-action">{{ bookscopy.book.title }}</a></p>
                     {% if not bookscopy.holder %}
                         <p class="col-2">Главное хранилище</p>
                     {% else %}
-                        <p class="col-2"><a href="{% url 'p_library:user_detail_url' bookscopy.holder.slug %}">{{ bookscopy.holder.full_name }}</a></p>
+                        <p class="col-2"><a href="{% url 'p_library:user_detail_url' bookscopy.holder.slug %}" class="list-group-item-action">{{ bookscopy.holder.full_name }}</a></p>
                     {%  endif %}
                     <p class="col">{{ bookscopy.notes }}</p>
                 </div>

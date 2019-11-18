@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-body row">
                     <p class="col-1">{{ forloop.counter }}</p>
-                    <p class="col"><a href="{% url 'p_library:publisher_detail_url' publisher.slug %}">{{ publisher.name }}</a></p>
+                    <p class="col"><a href="{% url 'p_library:publisher_detail_url' publisher.slug %}" class="list-group-item-action">{{ publisher.name }}</a></p>
                     <p class="col-2">{{ publisher.country }}</p>
                     <p class="col-2">{{ publisher.books.all|length }} шт.</p>
                 </div>
