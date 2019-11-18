@@ -8,22 +8,18 @@
         <div class="col">
             <div class="card">
                 <div class="card-header text-white bg-secondary">
-                    {{ publisher.name }}
+                    {{ user.full_name }}
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <p class="card-text">{{ publisher.description }}</p>
+                            <p class="card-text">{{ user.description }}</p>
                         </div>
                         <div class="col-4">
-                            <h5>Страна:</h5>
-                            <p class="card-text">{{ publisher.country }}</p>
-                            <br>
-                            <p>
-                            {% for tag in publisher.tag.all %}
-                            <a href="{% url 'p_library:tag_detail_url' tag.slug %}">#{{ tag.title }}</a>
-                            {% endfor %}
-                            </p>
+                            <h5>День рождения:</h5>
+                            <p class="card-text">{{ user.birth_date }}</p>
+                            <h5>Читательский билет:</h5>
+                            <p class="card-text">{{ user.library_card }}</p>
                         </div>
                     </div>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
@@ -32,40 +28,31 @@
         </div>
         <div class="col-2">
             <div class="card">
-                <img class="card-img-top" src="http://www.clipartbest.com/cliparts/RcA/EBp/RcAEBpk4i.png" alt="">
+                <img class="card-img-top" src="https://im0-tub-ru.yandex.net/i?id=fe062ad054a4c575fb7ab5f76baa48b7&n=13&exp=1" alt="">
             </div>
         </div>
     </div>
 </div>
-
 <div>
     <div class="mt-3">
         <div class="card text-white bg-secondary">
             <div class="card-body row">
                 <p class="col-1">№</p>
                 <p class="col">Название</p>
-                <p class="col-2">Авторы</p>
-                <p class="col-2">ISBN</p>
+                <p class="col-3">uuid</p>
             </div>
         </div>
-        {% for book in publisher.books.all %}
+        {% for books_copy in user.books_copy.all %}
         <div class="card">
             <div class="card-body row">
                 <p class="col-1">{{ forloop.counter }}</p>
-                <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}">{{ book.title }}</a></p>
-                <div class="col-2">
-                    {% for author in book.author.all %}
-                    <p>{{ author.full_name }} ({{ author.country }})</p>
-                    {% endfor %}
-                </div>
-                <p class="col-2">{{ book.ISBN }}</p>
+                <p class="col"><a href="{% url 'p_library:book_detail_url' books_copy.book.slug %}">{{ books_copy.book.title }}</a></p>
+                <p class="col-3"><a href="{% url 'p_library:copy_detail_url' books_copy.uuid %}">{{ books_copy.uuid }}</a></p>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
-
-
 <br>
 
 {% endblock %}

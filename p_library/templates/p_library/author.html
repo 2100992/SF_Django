@@ -22,9 +22,9 @@
                             <p class="card-text">{{ author.country }}</p>
                             <br>
                             <p>
-                                {% for tag in author.tag.all %}
-                                #{{ tag.title }}
-                                {% endfor %}
+                            {% for tag in author.tag.all %}
+                            <a href="{% url 'p_library:tag_detail_url' tag.slug %}">#{{ tag.title }}</a>
+                            {% endfor %}
                             </p>
                         </div>
                     </div>
@@ -37,6 +37,32 @@
                 <img class="card-img-top" src="http://www.clipartbest.com/cliparts/RcA/EBp/RcAEBpk4i.png" alt="">
             </div>
         </div>
+    </div>
+</div>
+<div>
+    <div class="mt-3">
+        <div class="card text-white bg-secondary">
+            <div class="card-body row">
+                <p class="col-1">№</p>
+                <p class="col">Название</p>
+                <p class="col-2">Авторы</p>
+                <p class="col-2">ISBN</p>
+            </div>
+        </div>
+        {% for book in author.book.all %}
+        <div class="card">
+            <div class="card-body row">
+                <p class="col-1">{{ forloop.counter }}</p>
+                <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}">{{ book.title }}</a></p>
+                <div class="col-2">
+                    {% for author in book.author.all %}
+                    <p>{{ author.full_name }} ({{ author.country }})</p>
+                    {% endfor %}
+                </div>
+                <p class="col-2">{{ book.ISBN }}</p>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 <br>

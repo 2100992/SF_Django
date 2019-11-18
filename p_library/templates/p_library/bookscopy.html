@@ -1,0 +1,41 @@
+{% extends "p_library/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="mt-3">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header text-white bg-secondary">
+                    {{ bookscopy.book.title }}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text">{{ bookscopy.notes }}</p>
+                        </div>
+                        <div class="col-4">
+                            <h5>Местонахождение:</h5>
+                            {% if not bookscopy.holder %}
+                                <p>Главное хранилище</p>
+                            {% else %}
+                                <p><a href="{% url 'p_library:user_detail_url' bookscopy.holder.slug %}">{{ bookscopy.holder.full_name }}</a></p>
+                            {%  endif %}
+                            <br>
+
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card">
+                <img class="card-img-top" src="http://www.clipartbest.com/cliparts/RcA/EBp/RcAEBpk4i.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}

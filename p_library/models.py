@@ -42,6 +42,7 @@ class Author(models.Model):
     tag = models.ManyToManyField(
         Tag,
         blank=True,
+        related_name='author',
     )
 
     def save(self, *args, **kwargs):
@@ -61,6 +62,7 @@ class Publisher(models.Model):
     tag = models.ManyToManyField(
         Tag,
         blank=True,
+        related_name='publisher',
     )
 
     def save(self, *args, **kwargs):
@@ -91,6 +93,7 @@ class Book(models.Model):
     tag = models.ManyToManyField(
         Tag,
         blank=True,
+        related_name='book',
     )
 
     def save(self, *args, **kwargs):

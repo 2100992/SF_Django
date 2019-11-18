@@ -32,5 +32,5 @@ urlpatterns = [
     path('tag/<str:slug>/', views.TagDetail.as_view(), name='tag_detail_url'),
 
     path('books-copies/', views.BooksCopies.as_view(), name='copies_list_url'),
-    path('books-copy/<str:slug>/', views.BooksCopyDetail.as_view(), name='copy_detail_url'),
+    path('books-copy/<str:uuid>/', views.BooksCopyDetail.as_view(), name='copy_detail_url'),
 ]

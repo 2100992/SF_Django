@@ -52,7 +52,7 @@ class Books(View):
     def get(self, request):
         books = get_list_or_404(self.model)
         for book in books:
-            book.available_copies = book.books_copy.all().count() - book.books_copy.all().filter(holder=None).count()
+            book.available_copies = book.books_copy.all().filter(holder=None).count()
         obj_data = {
             self.model.__name__.lower(): books
         }
@@ -255,9 +255,16 @@ class AuthorDetail(ObjectDetailMixin, View):
     template = 'p_library/author.html'
 
 
-class BooksCopyDetail(ObjectDetailMixin, View):
+class BooksCopyDetail(View):
     model = BooksCopy
     template = 'p_library/bookscopy.html'
+
+    def get(self, request, uuid):
+        obj = get_object_or_404(self.model, uuid=uuid)
+        obj_data = {
+            self.model.__name__.lower(): obj
+        }
+        return render(request, self.template, context=obj_data)
 
 
 def users(request):
