@@ -2,4 +2,4 @@
 .vscode/*
 *.pyc
 *.sqlite3
-
+my_site/secrets.py
