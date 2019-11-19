@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <django-objects version="1.0">
+    <object model="contenttypes.contenttype" pk="1">
+        <field name="app_label" type="CharField">admin</field>
+        <field name="model" type="CharField">logentry</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="2">
+        <field name="app_label" type="CharField">auth</field>
+        <field name="model" type="CharField">permission</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="3">
+        <field name="app_label" type="CharField">auth</field>
+        <field name="model" type="CharField">group</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="4">
+        <field name="app_label" type="CharField">auth</field>
+        <field name="model" type="CharField">user</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="5">
+        <field name="app_label" type="CharField">contenttypes</field>
+        <field name="model" type="CharField">contenttype</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="6">
+        <field name="app_label" type="CharField">sessions</field>
+        <field name="model" type="CharField">session</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="7">
+        <field name="app_label" type="CharField">p_library</field>
+        <field name="model" type="CharField">author</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="8">
+        <field name="app_label" type="CharField">p_library</field>
+        <field name="model" type="CharField">book</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="9">
+        <field name="app_label" type="CharField">p_library</field>
+        <field name="model" type="CharField">tag</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="10">
+        <field name="app_label" type="CharField">p_library</field>
+        <field name="model" type="CharField">user</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="11">
+        <field name="app_label" type="CharField">p_library</field>
+        <field name="model" type="CharField">publisher</field>
+    </object>
+    <object model="contenttypes.contenttype" pk="12">
+        <field name="app_label" type="CharField">p_library</field>
+        <field name="model" type="CharField">bookscopy</field>
+    </object>
+    <object model="sessions.session" pk="b1uphdy8eo6uv2l6y3w4tl1ywjmn6utw">
+        <field name="session_data" type="TextField">MTBkNGM1ZTA2MmQ5NzE2OWE2NjhmNjhmOTZmYjI0N2U4NjQ0ODdhMzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0NzU5ZGFmMTg0YjhiMGViNzhjMDQwMTEyYmUyZGIzZWFiNGM2MjkyIn0=</field>
+        <field name="expire_date" type="DateTimeField">2019-12-02T15:48:12.053974+00:00</field>
+    </object>
+    <object model="sessions.session" pk="qp9i4o38pfuzfzbq8cyyn1593n5g0phl">
+        <field name="session_data" type="TextField">MTBkNGM1ZTA2MmQ5NzE2OWE2NjhmNjhmOTZmYjI0N2U4NjQ0ODdhMzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0NzU5ZGFmMTg0YjhiMGViNzhjMDQwMTEyYmUyZGIzZWFiNGM2MjkyIn0=</field>
+        <field name="expire_date" type="DateTimeField">2019-12-01T13:11:26.035729+00:00</field>
+    </object>
     <object model="p_library.tag" pk="1">
         <field name="title" type="CharField">сказка</field>
         <field name="slug" type="SlugField">skazka</field>
