@@ -31,9 +31,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if os.path.isfile('my_site/secrets.py'):
     from my_site.secrets import SECRET_KEY
 else:
-    try:
-        SECRET_KEY = os.environ.get('SECRET_KEY')
-    except:
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    if not SECRET_KEY:
         print('SECRET_KEYs error!!!')
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         SECRET_KEY = get_random_string(50, chars)
