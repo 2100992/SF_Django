@@ -41,7 +41,10 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hw-django.herokuapp.com']
+ALLOWED_HOSTS = [
+    'hw-django.herokuapp.com',
+    'localhost'
+    ]
 
 
 # Application definition
