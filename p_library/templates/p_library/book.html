@@ -61,9 +61,9 @@
                 <p class="col-1">{{ forloop.counter }}</p>
                 <p class="col"><a href="{% url 'p_library:copy_detail_url' books_copy.uuid %}" class="list-group-item-action">{{ books_copy.uuid }}</a></p>
                 {% if not books_copy.holder %}
-                    <p class="col-2">Главное хранилище</p>
+                    <p class="col-3">Главное хранилище</p>
                 {% else %}
-                    <p class="col-2"><a href="{% url 'p_library:user_detail_url' books_copy.holder.slug %}" class="list-group-item-action">{{ books_copy.holder.full_name }}</a></p>
+                    <p class="col-3"><a href="{% url 'p_library:user_detail_url' books_copy.holder.slug %}" class="list-group-item-action">{{ books_copy.holder.full_name }}</a></p>
                 {%  endif %}
             </div>
         </div>
