@@ -101,7 +101,7 @@ class Person(models.Model):
     name = models.CharField(max_length=50, blank=True,)
     surname = models.CharField(max_length=50, blank=True,)
     patronymic = models.CharField(max_length=50, blank=True,)
-    company = models.models.ForeignKey(
+    company = models.ForeignKey(
     CompanyInfo, blank=True, on_delete=models.DO_NOTHING)
     description = models.TextField(null=True, blank=True)
     slug = models.SlugField(default='_', max_length=50, unique=True)
@@ -134,6 +134,6 @@ class Sale(models.Model):
 
 '''_______________________________________________________________________________'''
 class Shipment(models.Model):
-    item = models.ForeignKey(Item)
-    sale = models.ForeignKey(Sale)
+    item = models.ForeignKey(Item, on_delete=models.DO_NOTHING)
+    sale = models.ForeignKey(Sale, on_delete=models.DO_NOTHING)
 
