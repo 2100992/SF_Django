@@ -169,3 +169,8 @@ STATIC_URL = '/static/'
 
 # Что это?
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
+# Что это?
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
