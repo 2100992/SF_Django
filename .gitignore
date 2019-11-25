@@ -8,3 +8,4 @@ newdata.xml
 data_not_full.xml
 *.xlsx
 *.csv
+*_config.py
