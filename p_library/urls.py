@@ -10,22 +10,22 @@ urlpatterns = [
     path('', views.library),
 
     path('books/', views.Books.as_view(), name='books_list_url'),
+    path('book/create/', views.AuthorEdit.as_view(), name='book_create'),
     path('book/<str:slug>/', views.BookDetail.as_view(), name='book_detail_url'),
 
-    path('book_author/create_many/', views.books_authors_create_many, name='books_authors_create_many'),
+    # path('book_author/create_many/', views.books_authors_create_many, name='books_authors_create_many'),
 
     path('authors/', views.Authors.as_view(), name='authors_list_url'),
-    path('author/<str:slug>/', views.AuthorDetail.as_view(), name='author_detail_url'),
-
     path('author/create/', views.AuthorEdit.as_view(), name='author_create'),
-    path('author/create_many/', views.author_create_many, name='author_create_many'),
+    path('author/<str:slug>/', views.AuthorDetail.as_view(), name='author_detail_url'),
+    # path('author/create_many/', views.author_create_many, name='author_create_many'),
+    path('f_authors/', views.AuthorList.as_view(), name='authors_list'),
 
     path('publishers/', views.Publishers.as_view(), name='publishers_list_url'),
     path('publisher/<str:slug>/', views.PublisherDetail.as_view(), name='publisher_detail_url'),
 
-    path('f_authors/', views.AuthorList.as_view(), name='authors_list'),
-
     path('users/', views.Users.as_view(), name='library_users_url'),
+    path('user/create/', views.AuthorEdit.as_view(), name='user_create'),
     path('user/<str:slug>/', views.UserDetail.as_view(), name='user_detail_url'),
 
     path('tags/', views.Tags.as_view(), name='tags_list_url'),
