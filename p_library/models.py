@@ -120,7 +120,7 @@ class User(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = make_unique_slug(Book, slugify(self.full_name))
+            self.slug = make_unique_slug(User, slugify(self.full_name))
         super(User, self).save(*args, **kwargs)
 
     def __str__(self):
