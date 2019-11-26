@@ -6,3 +6,5 @@ my_site/secrets.py
 data copy.xml
 newdata.xml
 data_not_full.xml
+*.xlsx
+*.csv
