@@ -10,8 +10,8 @@ def db_parse(df, companies, periods, products):
     results_list = []
 
     for product in products:
-        for company in companies:
-            for period in periods:
+        for period in periods:
+            for company in companies:
                 result_series = df[(
                     df.delivery_date >= periods[period][0]) & (
                     df.delivery_date <= periods[period][1]) & (
