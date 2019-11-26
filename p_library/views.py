@@ -88,39 +88,39 @@ class Publishers(ObjectsListMixin, View):
     title = 'Издатели'
 
 
-def book_increment(request):
-    if request.method == 'POST':
-        book_id = request.POST['id']
-        if not book_id:
-            return redirect('/library/books/')
-        else:
-            book = Book.objects.filter(id=book_id).first()
-            if not book:
-                return redirect('/library/books/')
-            book.copy_count += 1
-            book.save()
-        return redirect('/library/books/')
-    else:
-        return redirect('/library/books/')
+# def book_increment(request):
+#     if request.method == 'POST':
+#         book_id = request.POST['id']
+#         if not book_id:
+#             return redirect('/library/books/')
+#         else:
+#             book = Book.objects.filter(id=book_id).first()
+#             if not book:
+#                 return redirect('/library/books/')
+#             book.copy_count += 1
+#             book.save()
+#         return redirect('/library/books/')
+#     else:
+#         return redirect('/library/books/')
 
 
-def book_decrement(request):
-    if request.method == 'POST':
-        book_id = request.POST['id']
-        if not book_id:
-            return redirect('/library/books/')
-        else:
-            book = Book.objects.filter(id=book_id).first()
-            if not book:
-                return redirect('/library/books/')
-            if book.copy_count < 1:
-                book.copy_count = 0
-            else:
-                book.copy_count -= 1
-            book.save()
-        return redirect('/library/books/')
-    else:
-        return redirect('/books/')
+# def book_decrement(request):
+#     if request.method == 'POST':
+#         book_id = request.POST['id']
+#         if not book_id:
+#             return redirect('/library/books/')
+#         else:
+#             book = Book.objects.filter(id=book_id).first()
+#             if not book:
+#                 return redirect('/library/books/')
+#             if book.copy_count < 1:
+#                 book.copy_count = 0
+#             else:
+#                 book.copy_count -= 1
+#             book.save()
+#         return redirect('/library/books/')
+#     else:
+#         return redirect('/books/')
 
 
 def authors(request):
