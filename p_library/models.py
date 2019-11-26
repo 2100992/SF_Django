@@ -1,17 +1,21 @@
 from django.db import models
 
 import uuid
+
 from slugify import slugify
 
 
-def make_unique_slug(model, text, counter=0):
+# Preparation of a unique slug (add a counter to the end of new_slub)
+# Checking the slug for compliance with 'create' is needed to reserve the page url to create an object
+
+def make_unique_slug(model, new_slug, counter=0):
     str_counter = ''
     if counter:
         str_counter = str(counter)
-    if model.objects.filter(slug=text+str_counter).count():
+    if model.objects.filter(slug=new_slug+str_counter).count() or new_slug == 'create':
         counter += 1
-        text = make_unique_slug(model, text, counter)
-    return text + str_counter
+        new_slug = make_unique_slug(model, new_slug, counter)
+    return new_slug + str_counter
 
 
 # Create your models here.
@@ -81,7 +85,8 @@ class Book(models.Model):
     description = models.TextField(null=True, blank=True)
     year_release = models.SmallIntegerField(null=True, blank=True,)
     copy_count = models.SmallIntegerField(null=True, blank=True,)
-    price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,)
+    price = models.DecimalField(
+        max_digits=8, decimal_places=2, null=True, blank=True,)
     author = models.ManyToManyField(Author, related_name='book')
     publisher = models.ForeignKey(
         Publisher,
@@ -106,7 +111,6 @@ class Book(models.Model):
 
 
 class User(models.Model):
-    # Таблица пользователей библиотеки
     full_name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(default='_', max_length=150, unique=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -128,9 +132,6 @@ class User(models.Model):
 
 
 class BooksCopy(models.Model):
-    # В этой таблице будем хранить информацию о экземплярах книг
-    # в каком они состоянии
-    # у кого находятся (если ни у кого, значит в библиотеке)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     book = models.ForeignKey(
         Book,
@@ -148,4 +149,3 @@ class BooksCopy(models.Model):
 
     def __str__(self):
         return self.book.title
-
