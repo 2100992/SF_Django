@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path('library/', include('p_library.urls')),
+    path('firstaidkit/', include('my_first_aid_kit.urls')),
 ]
