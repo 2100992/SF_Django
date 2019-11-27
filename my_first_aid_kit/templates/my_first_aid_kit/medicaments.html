@@ -6,10 +6,44 @@
 
 {% block content %}
 <div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Название</th>
+                <th scope="col">Проиводитель</th>
+                <th scope="col">Действующие вещества</th>
+                <th scope="col">Леканственная группа</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medicament in medicaments %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ medicament.title }}</td>
+                <td>{{ medicament.drugmaker }}</td>
+                <td>
+                    <p>
+                    {% for as in medicament.active_substanse%}
+                        {{ as.title }}
+                    {% endfor %}
+                    </p>
+                </td>
+                <td>{{medicament.pharma_group}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
     <ul>
-        {% for medicament in medicaments %}
-        <li>{{ medicament.title }}</li>
-        {% endfor %}
+
     </ul>
 </div>
 <br>
