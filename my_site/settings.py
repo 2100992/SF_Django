@@ -32,9 +32,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # Секретный ключ не показываем в открытых репозиториях
-# Ключь прячем в файле 'my_site/secrets.py' (деплой на VDS)
-# Если такого файла нет, берем ключь из переменной среды (деплой на Heroku)
-# Если ключ так и не был определен, создаем случайный (тестовый запуск)
+# Варианты:
+# - Ключ прячем в файле 'my_site/secrets.py' (деплой на VDS)
+# - Если такого файла нет, берем ключ из переменной среды (деплой на Heroku)
+# - Если ключ так и не был определен, создаем случайный (тестовый запуск)
 
 if os.path.isfile('my_site/secrets.py'):
     from my_site.secrets import SECRET_KEY
@@ -45,6 +46,7 @@ if not SECRET_KEY:
     print('SECRET_KEYs error!!!')
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
     SECRET_KEY = get_random_string(50, chars)
+    print(f'temporary generated SECRET_KEY = {SECRET_KEY}')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
