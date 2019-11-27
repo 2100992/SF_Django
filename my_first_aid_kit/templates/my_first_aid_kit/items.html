@@ -1,0 +1,16 @@
+{% extends "my_first_aid_kit/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block navbar %}{% include 'my_first_aid_kit/navbar.html' %}{% endblock %}
+
+{% block content %}
+<div>
+    <ul>
+        {% for item in items %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</div>
+<br>
+{% endblock %}
