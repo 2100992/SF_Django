@@ -24,12 +24,16 @@
                 <td>{{ medicament.drugmaker }}</td>
                 <td>
                     <p>
-                    {% for as in medicament.active_substanse%}
-                        {{ as.title }}
+                    {% for active_substance in medicament.active_substance.all%}
+                        {{ active_substance.title }},
                     {% endfor %}
                     </p>
                 </td>
-                <td>{{medicament.pharma_group}}</td>
+                <td>
+                    {% for pharma_group in medicament.pharma_group.all%}
+                        {{ pharma_group.title }},
+                    {% endfor %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
