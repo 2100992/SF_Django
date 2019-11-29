@@ -170,13 +170,17 @@ USE_TZ = True
 # По этому пути будет доступна статика
 # Например http://mysite.ru/static/p_library
 STATIC_URL = '/static/'
-STATICFILES_DIRS = []
+
+# Тут можно прописать дополнительные пути к статике
+# Например:
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static'),
+#     '/var/www/static/',
 # ]
+STATICFILES_DIRS = []
 
-# Что это?
+# Абсолютный путь по которому collectstatic сложит статику при деплое
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 
