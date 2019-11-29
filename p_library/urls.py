@@ -26,7 +26,7 @@ urlpatterns = [
 
     path('f_authors/', views.AuthorList.as_view(), name='authors_list'),
 
-    path('users/', views.Users.as_view(), name='library_users_url'),
+    path('users/', views.Users.as_view(), name='users_list_url'),
     path('user/<str:slug>/', views.UserDetail.as_view(), name='user_detail_url'),
 
     path('tags/', views.Tags.as_view(), name='tags_list_url'),

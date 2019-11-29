@@ -20,6 +20,6 @@ from .views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('library/', include('p_library.urls')),
-    path('firstaidkit/', include('my_first_aid_kit.urls')),
+    path('p_library/', include('p_library.urls')),
+    path('my_first_aid_kit/', include('my_first_aid_kit.urls')),
 ]
