@@ -1,4 +1,4 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +9,7 @@
     <title>{% block title %}My amazing site{% endblock %}</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/lib_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lib_styles.css' %}">
 </head>
 
 <body>
@@ -37,6 +37,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
         integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
         crossorigin="anonymous"></script>
+
+    <!-- <style type="text/css">
+        .test1 {
+            border-radius: 15px;
+            background-color: brown;
+        }
+    </style> -->
 </body>
 
 </html>
