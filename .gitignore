@@ -6,11 +6,6 @@ my_site/secrets.py
 data copy.xml
 newdata.xml
 data_not_full.xml
-<<<<<<< HEAD
-*.xlsx
-*.csv
-=======
 *_config.py
 *.xlsx
 *.csv
->>>>>>> my_first_aid_kit
