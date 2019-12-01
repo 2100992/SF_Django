@@ -81,7 +81,8 @@ class Book(models.Model):
     description = models.TextField(null=True, blank=True)
     year_release = models.SmallIntegerField(null=True, blank=True,)
     copy_count = models.SmallIntegerField(null=True, blank=True,)
-    price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True,)
+    price = models.DecimalField(
+        max_digits=8, decimal_places=2, null=True, blank=True,)
     author = models.ManyToManyField(Author, related_name='book')
     publisher = models.ForeignKey(
         Publisher,
@@ -94,6 +95,11 @@ class Book(models.Model):
         Tag,
         blank=True,
         related_name='book',
+    )
+    cover_img = models.ImageField(
+        upload_to='p_library/books/covers/%Y/%m/%d',
+        blank=True,
+        null=True,
     )
 
     def save(self, *args, **kwargs):
@@ -148,4 +154,3 @@ class BooksCopy(models.Model):
 
     def __str__(self):
         return self.book.title
-
