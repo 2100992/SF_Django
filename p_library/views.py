@@ -156,7 +156,7 @@ class AuthorEdit(CreateView):
     model = Author
     form_class = AuthorForm
     # success_url = '/library/authors/'
-    success_url = reverse_lazy('p_library:authors')
+    success_url = reverse_lazy('p_library:authors_list_url')
     template_name = 'p_library/a_edit.html'
 
 

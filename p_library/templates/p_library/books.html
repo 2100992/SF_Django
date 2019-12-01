@@ -12,9 +12,9 @@
                 <div class="card-body row">
                     <p class="col-1">№</p>
                     <p class="col">Название</p>
-                    <p class="col-2">Авторы</p>
-                    <p class="col-2">ISBN</p>
-                    <p class="col-2">Экземпляров<br>всего / доступно</p>
+                    <p class="col">Авторы</p>
+                    <p class="col-2 no-matter">ISBN</p>
+                    <p class="col-2 no-matter">Экземпляров<br>всего / доступно</p>
                 </div>
             </div>
             {% for book in book %}
@@ -22,13 +22,13 @@
                 <div class="card-body row">
                     <p class="col-1">{{ forloop.counter }}</p>
                     <p class="col"><a href="{% url 'p_library:book_detail_url' book.slug %}" class="list-group-item-action">{{ book.title }}</a></p>
-                    <div class="col-2">
+                    <div class="col">
                         {% for author in book.author.all %}
                         <p><a href="{% url 'p_library:author_detail_url' author.slug %}" class="list-group-item-action">{{ author.full_name }}</a> ({{ author.country }})</p>
                         {% endfor %}
                     </div>
-                    <p class="col-2">{{ book.ISBN }}</p>
-                    <p class="col-2">{{ book.books_copy.all|length}} / {{ book.available_copies }}</p>
+                    <p class="col-2 no-matter">{{ book.ISBN }}</p>
+                    <p class="col-2 no-matter">{{ book.books_copy.all|length}} / {{ book.available_copies }}</p>
                 </div>
             </div>
             {% endfor %}

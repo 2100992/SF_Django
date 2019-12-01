@@ -1,6 +1,6 @@
 <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">SkillFactory D5</a>
+        <a class="navbar-brand" href="/">SkillFactory D6</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -9,22 +9,22 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/library/books">Книги</a>
+                    <a class="nav-link" href="{% url 'p_library:books_list_url' %}">Книги</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/library/authors">Авторы</a>
+                    <a class="nav-link" href="{% url 'p_library:authors_list_url' %}">Авторы</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/library/publishers">Издательства</a>
+                    <a class="nav-link" href="{% url 'p_library:publishers_list_url' %}">Издательства</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/library/users">Читатели</a>
+                    <a class="nav-link" href="{% url 'p_library:users_list_url' %}">Читатели</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/library/tags">Тэги</a>
+                    <a class="nav-link" href="{% url 'p_library:tags_list_url' %}">Тэги</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/library/books-copies">Экземпляры книг</a>
+                    <a class="nav-link" href="{% url 'p_library:copies_list_url' %}">Экземпляры книг</a>
                 </li>
             </ul>
         </div>

@@ -40,7 +40,11 @@
         </div>
         <div class="col-2">
             <div class="card">
-                <img class="card-img-top" src="https://pp.userapi.com/c845218/v845218389/93ed4/jHwbPxAS7PE.jpg" alt="">
+                {% if book.cover_img %}
+                    <img class="card-img-top" src="{{book.cover_img.url}}" alt="обложка">
+                {% else%}
+                    <img class="card-img-top" src="/media/p_library/books/covers/cover.jpeg" alt="обложка">
+                {% endif %}
             </div>
         </div>
     </div>

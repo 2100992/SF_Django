@@ -14,6 +14,9 @@ import os
 import dj_database_url
 from django.utils.crypto import get_random_string
 
+
+# Дальше кусок кода с использованием библиотеки django_herok
+# Пока обошелся без неё
 '''
 import django_heroku
 django_heroku.settings(locals())
@@ -28,15 +31,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
+# Секретный ключ не показываем в открытых репозиториях
+# Варианты:
+# - Ключ прячем в файле 'my_site/secrets.py' (деплой на VDS)
+# - Если такого файла нет, берем ключ из переменной среды (деплой на Heroku)
+# - Если ключ так и не был определен, создаем случайный (тестовый запуск)
+
 if os.path.isfile('my_site/secrets.py'):
     from my_site.secrets import SECRET_KEY
 else:
-    try:
-        SECRET_KEY = os.environ.get('SECRET_KEY')
-    except:
-        print('SECRET_KEYs error!!!')
-        chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
-        SECRET_KEY = get_random_string(50, chars)
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+
+if not SECRET_KEY:
+    print('SECRET_KEYs error!!!')
+    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+    SECRET_KEY = get_random_string(50, chars)
+    print(f'temporary generated SECRET_KEY = {SECRET_KEY}')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,7 +54,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'hw-django.herokuapp.com',
     'localhost'
-    ]
+]
 
 
 # Application definition
@@ -56,7 +66,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'p_library'
+    'p_library',
+    'my_first_aid_kit',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +82,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'my_site.urls'
 
+
+# добавим в DIRS "os.path.join(BASE_DIR, 'templates')" для возможности применения общих для проекта шаблонов
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -95,6 +108,12 @@ WSGI_APPLICATION = 'my_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# Формируем параметры базы даннях
+# Для начала пробуем взять URL базы из переменной окружения (деплой на Heroku)
+# В случае успеха разбираем URL с помощью dj_database_url
+# В противном случае подставляем параметры SQLight
+# ToDo: добавить чтение URL из файла (например secrets.py) для деплоя на VDS
+
 try:
     DATABASE_URL = os.environ.get('DATABASE_URL')
 except:
@@ -103,7 +122,7 @@ except:
 if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL)
-        }
+    }
 else:
     DATABASES = {
         'default': {
@@ -148,6 +167,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# По этому пути будет доступна статика
+# Например http://mysite.ru/static/p_library
 STATIC_URL = '/static/'
 
+# Тут можно прописать дополнительные пути к статике
+# Например:
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+#     '/var/www/static/',
+# ]
+STATICFILES_DIRS = []
+
+# Абсолютный путь по которому collectstatic сложит статику при деплое
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
+# Что это?
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

@@ -1,0 +1,77 @@
+{% extends "p_library/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="mt-3">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header text-white bg-secondary">
+                    {{ book.title }}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text">{{ book.description }}</p>
+                        </div>
+                        <div class="col-4">
+                            <h5>Издатель:</h5>
+                            {% if book.publisher %}
+                            <p class="card-text"><a href="{% url 'p_library:publisher_detail_url' book.publisher.slug %}" class="list-group-item-action">{{ book.publisher.name }}</a> ({{ book.publisher.country }})</p>
+                            {% endif %}
+                            <h5>ISBN:</h5>
+                            <p class="card-text">{{ book.ISBN }}</p>
+                            <div>
+                                <h5>Авторство:</h5>
+                                {% for author in book.author.all %}
+                                <p><a href="{% url 'p_library:author_detail_url' author.slug %}" class="list-group-item-action">{{ author.full_name }}</a> ({{ author.country }})</p>
+                                {% endfor %}
+                            </div>
+                            <p>
+                                {% for tag in book.tag.all %}
+                                <a href="{% url 'p_library:tag_detail_url' tag.slug %}" class="list-group-item-action">#{{ tag.title }}</a>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card">
+                <img class="card-img-top" src="https://pp.userapi.com/c845218/v845218389/93ed4/jHwbPxAS7PE.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<h3>Экземпляры книги:</h3>
+<div>
+    <div class="mt-3">
+        <div class="card text-white bg-secondary">
+            <div class="card-body row">
+                <p class="col-1">№</p>
+                <p class="col">UUID</p>
+                <p class="col-3">Местонахождение</p>
+            </div>
+        </div>
+        {% for books_copy in book.books_copy.all %}
+        <div class="card">
+            <div class="card-body row">
+                <p class="col-1">{{ forloop.counter }}</p>
+                <p class="col"><a href="{% url 'p_library:copy_detail_url' books_copy.uuid %}" class="list-group-item-action">{{ books_copy.uuid }}</a></p>
+                {% if not books_copy.holder %}
+                    <p class="col-3">Главное хранилище</p>
+                {% else %}
+                    <p class="col-3"><a href="{% url 'p_library:user_detail_url' books_copy.holder.slug %}" class="list-group-item-action">{{ books_copy.holder.full_name }}</a></p>
+                {%  endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<br>
+
+{% endblock %}
