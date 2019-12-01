@@ -3,10 +3,11 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+{% load staticfiles %}
     <div>
         <h3>Очередной проект - домашнее задание SkillFactory.</h3>
         <p>Библиотека книг.</p>
     </div>
-    <img src='{% static "p_library/lib.jpeg" %}'>
+    {% comment %} <img src='{% static "p_library/img/lib.jpeg" %}'> {% endcomment %}
     <br>
 {% endblock %}
