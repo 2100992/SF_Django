@@ -1,4 +1,4 @@
-Данный учебный проект - одна из домашних работ по курсу Full-stack веб-разработчик на Python от компании SkillFactory.
+# Данный учебный проект - одна из домашних работ по курсу Full-stack веб-разработчик на Python от компании SkillFactory.
 
 По заданию нужно было сделать проект домашней библиотеки.
 Книги с учетом количества экзепляров, Авторы книг, Издательства.
@@ -10,6 +10,7 @@
 Приложение для учета лекарств в домашней аптечке my_first_aid_kit пока не дописано.
 
 Для разварачивания своей копии на облачной PaaS платформе Heroku можно воспользоваться следующим сценарием:
+
 - на GitHub делаем форк проекта
 - после регистрации на heroku.com создаем новое приложение (кнопка NEW -> Create New App)
 - после создания приложения во вкладке Deploy выбираем Deployment method - GitHub
@@ -18,9 +19,9 @@
 - настраиваем Automatic deploys
 - выбираем правильный Deploy Branch
 - если установлен heroku cli, запускаем команды
-    heroku run --app hw-django python manage.py makemigrations p_library
-    heroku run --app hw-django python manage.py migrate
- - как вариант, сделать это через кансоль прямо на heroku.com (кнопка more -> run console)
+    - heroku run --app hw-django python manage.py makemigrations p_library
+    - heroku run --app hw-django python manage.py migrate
+- как вариант, сделать это через кансоль прямо на heroku.com (кнопка more -> run console)
  
  При разворачивании на VDS сервере необходимо доставить необходимые пакеты. Лучше не в общую систему, а в виртуальное окружение virtualenv.
  pip install -r requirements.txt
