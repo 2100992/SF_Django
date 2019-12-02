@@ -15,7 +15,7 @@ import dj_database_url
 from django.utils.crypto import get_random_string
 
 
-# Дальше кусок кода с использованием библиотеки django_herok
+# Дальше кусок кода с использованием библиотеки django_heroku
 # Пока обошелся без неё
 '''
 import django_heroku
