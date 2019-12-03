@@ -111,7 +111,7 @@ class Book(models.Model):
         return self.title
 
 
-class User(models.Model):
+class UserProfile(models.Model):
     # Таблица пользователей библиотеки
     full_name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(default='_', max_length=150, unique=True)
@@ -126,8 +126,8 @@ class User(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = make_unique_slug(User, slugify(self.full_name))
-        super(User, self).save(*args, **kwargs)
+            self.slug = make_unique_slug(UserProfile, slugify(self.full_name))
+        super(UserProfile, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.full_name
@@ -144,7 +144,7 @@ class BooksCopy(models.Model):
         related_name='books_copy',
     )
     holder = models.ForeignKey(
-        User,
+        UserProfile,
         on_delete=models.DO_NOTHING,
         null=True,
         blank=True,

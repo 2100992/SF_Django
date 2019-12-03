@@ -19,7 +19,7 @@ class AuthorAdmin(admin.ModelAdmin):
     list_filter = ('name',)
     pass
 
-@admin.register(User)
+@admin.register(UserProfile)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'library_card')
 

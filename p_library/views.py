@@ -70,8 +70,8 @@ class Authors(ObjectsListMixin, View):
     title = 'Авторы'
 
 
-class Users(ObjectsListMixin, View):
-    model = User
+class UserProfiles(ObjectsListMixin, View):
+    model = UserProfile
     template = 'p_library/users.html'
     title = 'Пользователи'
 
@@ -241,7 +241,7 @@ class TagDetail(ObjectDetailMixin, View):
 
 
 class UserDetail(ObjectDetailMixin, View):
-    model = User
+    model = UserProfile
     template = 'p_library/user.html'
 
 
@@ -267,8 +267,8 @@ class BooksCopyDetail(View):
         return render(request, self.template, context=obj_data)
 
 
-def users(request):
-    users_data = {
-        'users': User.objects.all(),
-    }
-    return render(request, 'p_library/users.html', context=users_data)
+# def users(request):
+#     users_data = {
+#         'users': User.objects.all(),
+#     }
+#     return render(request, 'p_library/users.html', context=users_data)
