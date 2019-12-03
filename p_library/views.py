@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
 from p_library.models import *
+from django.contrib.auth.models import User
 from django.template import loader
 from p_library.forms import AuthorForm, BookForm
 from django.views.generic import CreateView, ListView, View

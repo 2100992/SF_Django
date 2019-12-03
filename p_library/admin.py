@@ -1,5 +1,6 @@
 from codecs import register
 from django.contrib import admin
+from django.contrib.auth.models import User
 
 from p_library.models import *
 
@@ -20,7 +21,7 @@ class AuthorAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(UserProfile)
-class UserAdmin(admin.ModelAdmin):
+class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'library_card')
 
 @admin.register(BooksCopy)
@@ -31,6 +32,17 @@ class BooksCopyAdmin(admin.ModelAdmin):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Employee)
+class EmployeeAdmin(admin.ModelAdmin):
+    pass
+
+# Unregister the provided model admin
+admin.site.unregister(User)
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
     pass
 
 # Register your models here.
