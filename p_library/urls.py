@@ -7,7 +7,7 @@ from . import views
 app_name = 'p_library'
 
 urlpatterns = [
-    path('', views.library),
+    path('', views.library, name='library_url'),
 
     path('books/', views.Books.as_view(), name='books_list_url'),
     path('book/<str:slug>/', views.BookDetail.as_view(), name='book_detail_url'),
@@ -34,4 +34,8 @@ urlpatterns = [
 
     path('books-copies/', views.BooksCopies.as_view(), name='copies_list_url'),
     path('books-copy/<str:uuid>/', views.BooksCopyDetail.as_view(), name='copy_detail_url'),
+
+    path('login/', views.login, name='login_url'),
+    path('login_cbv/', views.Login.as_view(), name='login_cbv_url'),
+    path('logout/', views.logout, name='logout_url'),
 ]

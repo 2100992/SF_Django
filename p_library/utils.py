@@ -13,6 +13,10 @@ class ObjectDetailMixin:
         obj_data = {
             self.model.__name__.lower(): obj
         }
+
+        if request.user.is_authenticated:  
+            obj_data['username'] = request.user.username
+
         return render(request, self.template, context=obj_data)
 
 
@@ -29,6 +33,9 @@ class ObjectsListMixin:
             self.model.__name__.lower(): obj,
             'title': self.title
         }
+        if request.user.is_authenticated:  
+            obj_data['username'] = request.user.username
+            
         return render(request, self.template, context=obj_data)
 
 # Миксин для вывода во вьюху фильтрованного списка значений

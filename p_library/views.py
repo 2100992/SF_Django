@@ -12,6 +12,10 @@ from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
 from .utils import ObjectDetailMixin, ObjectsListMixin
 
+from django.contrib import auth
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
+
 # Create your views here.
 
 
@@ -23,6 +27,8 @@ def library(request):
         "title": 'Моя библиотека',
         'books': books,
     }
+    if request.user.is_authenticated:  
+            biblio_data['username'] = request.user.username
     return HttpResponse(template.render(biblio_data, request))
 
 
@@ -54,9 +60,14 @@ class Books(View):
         books = get_list_or_404(self.model)
         for book in books:
             book.available_copies = book.books_copy.all().filter(holder=None).count()
+
         obj_data = {
             self.model.__name__.lower(): books
         }
+
+        if request.user.is_authenticated:  
+            obj_data['username'] = request.user.username
+
         return render(request, self.template, context=obj_data)
 
 class BooksCopies(ObjectsListMixin, View):
@@ -267,9 +278,28 @@ class BooksCopyDetail(View):
         }
         return render(request, self.template, context=obj_data)
 
+class Login(View):
+    template_name = 'p_library/login.html'
+    redirect_field_name = 'p_library/'
 
-# def users(request):
-#     users_data = {
-#         'users': User.objects.all(),
-#     }
-#     return render(request, 'p_library/users.html', context=users_data)
+class Logout(View):
+    pass
+
+def login(request):  
+    if request.method == 'POST':  
+        form = AuthenticationForm(request=request, data=request.POST)  
+        if form.is_valid():  
+            auth.login(request, form.get_user())  
+            return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
+        else:
+            # ToDo:
+            # Добавить сообщение о ошибке лониг/пароль
+            return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
+    else:  
+        context = {'form': AuthenticationForm()}  
+        return render(request, 'p_library/login.html', context)  
+  
+
+def logout(request):  
+    auth.logout(request)  
+    return HttpResponseRedirect(reverse_lazy('p_library:library_url'))

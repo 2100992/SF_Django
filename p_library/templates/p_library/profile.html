@@ -1,0 +1,12 @@
+<!-- {% if username %}  
+    <h1>Привет, {{ username }}!</h1>  
+	<p>Тут ты можешь <a href="{% url 'p_library:logout_url' %}">выйти</a>.</p>  
+{% else %}  
+    <p>Тебе нужно <a href="{% url 'p_library:login_url' %}">войти</a> на сайт!</p>  
+{% endif %}  -->
+
+{% if username %}  
+    {{ username }}, ты можешь <a href="{% url 'p_library:logout_url' %}">выйти</a>
+{% else %}  
+    Тебе нужно <a href="{% url 'p_library:login_url' %}">войти</a> на сайт!
+{% endif %} 
