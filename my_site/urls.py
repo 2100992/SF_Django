@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin_url'),
     path('', index),
     path('p_library/', include('p_library.urls')),
     path('my_first_aid_kit/', include('my_first_aid_kit.urls')),

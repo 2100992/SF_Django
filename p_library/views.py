@@ -7,14 +7,14 @@ from django.contrib.auth.models import User
 from django.template import loader
 from p_library.forms import AuthorForm, BookForm
 from django.views.generic import CreateView, ListView, View
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
 from .utils import ObjectDetailMixin, ObjectsListMixin
 
 from django.contrib import auth
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 
 # Create your views here.
 
@@ -278,28 +278,41 @@ class BooksCopyDetail(View):
         }
         return render(request, self.template, context=obj_data)
 
-class Login(View):
+class Login(LoginView):
     template_name = 'p_library/login.html'
-    redirect_field_name = 'p_library/'
 
-class Logout(View):
-    pass
-
-def login(request):  
-    if request.method == 'POST':  
-        form = AuthenticationForm(request=request, data=request.POST)  
-        if form.is_valid():  
-            auth.login(request, form.get_user())  
-            return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
+    def get_success_url(self):
+        url = self.get_redirect_url()
+        if url:
+            return url
+        elif self.request.user.is_superuser:
+            return '/admin/'
+            # return reverse('admin')   # почему-то не работает
         else:
-            # ToDo:
-            # Добавить сообщение о ошибке лониг/пароль
-            return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
-    else:  
-        context = {'form': AuthenticationForm()}  
-        return render(request, 'p_library/login.html', context)  
+            return reverse('p_library:library_url')
+
+
+
+    # redirect_field_name = reverse('p_library:library_url')
+
+class Logout(LogoutView):
+    next_page = '/p_library/'
+
+# def login(request):  
+#     if request.method == 'POST':  
+#         form = AuthenticationForm(request=request, data=request.POST)  
+#         if form.is_valid():  
+#             auth.login(request, form.get_user())  
+#             return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
+#         else:
+#             # ToDo:
+#             # Добавить сообщение о ошибке лониг/пароль
+#             return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
+#     else:  
+#         context = {'form': AuthenticationForm()}  
+#         return render(request, 'p_library/login.html', context)  
   
 
-def logout(request):  
-    auth.logout(request)  
-    return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
+# def logout(request):  
+#     auth.logout(request)  
+#     return HttpResponseRedirect(reverse_lazy('p_library:library_url'))

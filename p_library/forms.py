@@ -1,5 +1,5 @@
 from django import forms
-from p_library.models import Author, Book, Tag
+from p_library.models import Author, Book, Tag, UserProfile
 
 class AuthorForm(forms.ModelForm):
     full_name = forms.CharField(widget=forms.TextInput)
@@ -20,3 +20,9 @@ class TagForm(forms.Form):
     def save(self):
         new_tag = Tag.objects.create(title=self.cleaned_data['title'])
         return new_tag
+
+class ProfileCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ['birth_date']
