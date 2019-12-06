@@ -1,15 +1,24 @@
 from sys import prefix
+from p_library.models import *
+from p_library.forms import AuthorForm, BookForm, ProfileCreationForm
+
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, get_list_or_404
+
 from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
-from p_library.models import *
+from django.http.response import HttpResponseRedirect
+
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.views import LoginView, LogoutView
+
 from django.template import loader
-from p_library.forms import AuthorForm, BookForm
-from django.views.generic import CreateView, ListView, View
+
+from django.views.generic import CreateView, ListView, View, FormView
 from django.urls import reverse_lazy, reverse
 from django.forms import formset_factory
-from django.http.response import HttpResponseRedirect
+
 from .utils import ObjectDetailMixin, ObjectsListMixin
 
 from django.contrib import auth
@@ -23,13 +32,15 @@ def library(request):
     template = loader.get_template('p_library/index.html')
     # books_count = Book.objects.all().count()
     books = Book.objects.all()
-    biblio_data = {
+    context = {
         "title": 'Моя библиотека',
         'books': books,
     }
-    if request.user.is_authenticated:  
-            biblio_data['username'] = request.user.username
-    return HttpResponse(template.render(biblio_data, request))
+    if request.user.is_authenticated:
+        context['username'] = request.user.username
+        if UserProfile.objects.filter(user=request.user).count():
+            context['age'] = f"Возраст посчитаем из дня рождения - {UserProfile.objects.get(user=request.user).birth_date} но потом"
+    return HttpResponse(template.render(context, request))
 
 
 # def books(request):
@@ -55,20 +66,23 @@ class Books(View):
     model = Book
     template = 'p_library/books.html'
     title = 'Книги'
-    
+
     def get(self, request):
         books = get_list_or_404(self.model)
         for book in books:
             book.available_copies = book.books_copy.all().filter(holder=None).count()
 
-        obj_data = {
+        context = {
             self.model.__name__.lower(): books
         }
 
-        if request.user.is_authenticated:  
-            obj_data['username'] = request.user.username
+        if request.user.is_authenticated:
+            context['username'] = request.user.username
+            if UserProfile.objects.filter(user=request.user).count():
+                        context['age'] = f"Возраст посчитаем из дня рождения - {UserProfile.objects.get(user=request.user).birth_date} но потом"
 
-        return render(request, self.template, context=obj_data)
+        return render(request, self.template, context=context)
+
 
 class BooksCopies(ObjectsListMixin, View):
     model = BooksCopy
@@ -100,68 +114,68 @@ class Publishers(ObjectsListMixin, View):
     title = 'Издатели'
 
 
-def book_increment(request):
-    if request.method == 'POST':
-        book_id = request.POST['id']
-        if not book_id:
-            return redirect('/library/books/')
-        else:
-            book = Book.objects.filter(id=book_id).first()
-            if not book:
-                return redirect('/library/books/')
-            book.copy_count += 1
-            book.save()
-        return redirect('/library/books/')
-    else:
-        return redirect('/library/books/')
+# def book_increment(request):
+#     if request.method == 'POST':
+#         book_id = request.POST['id']
+#         if not book_id:
+#             return redirect('/library/books/')
+#         else:
+#             book = Book.objects.filter(id=book_id).first()
+#             if not book:
+#                 return redirect('/library/books/')
+#             book.copy_count += 1
+#             book.save()
+#         return redirect('/library/books/')
+#     else:
+#         return redirect('/library/books/')
 
 
-def book_decrement(request):
-    if request.method == 'POST':
-        book_id = request.POST['id']
-        if not book_id:
-            return redirect('/library/books/')
-        else:
-            book = Book.objects.filter(id=book_id).first()
-            if not book:
-                return redirect('/library/books/')
-            if book.copy_count < 1:
-                book.copy_count = 0
-            else:
-                book.copy_count -= 1
-            book.save()
-        return redirect('/library/books/')
-    else:
-        return redirect('/books/')
+# def book_decrement(request):
+#     if request.method == 'POST':
+#         book_id = request.POST['id']
+#         if not book_id:
+#             return redirect('/library/books/')
+#         else:
+#             book = Book.objects.filter(id=book_id).first()
+#             if not book:
+#                 return redirect('/library/books/')
+#             if book.copy_count < 1:
+#                 book.copy_count = 0
+#             else:
+#                 book.copy_count -= 1
+#             book.save()
+#         return redirect('/library/books/')
+#     else:
+#         return redirect('/books/')
 
 
-def authors(request):
-    template = loader.get_template('p_library/authors.html')
-    authors = Author.objects.all()
+# def authors(request):
+#     template = loader.get_template('p_library/authors.html')
+#     authors = Author.objects.all()
 
-    for author in authors:
-        author.book_counter = Book.objects.filter(author=author).count()
+#     for author in authors:
+#         author.book_counter = Book.objects.filter(author=author).count()
 
-    authors_data = {
-        "title": 'Авторы',
-        'authors': authors,
-    }
-    return HttpResponse(template.render(authors_data, request))
+#     authors_data = {
+#         "title": 'Авторы',
+#         'authors': authors,
+#     }
+#     return HttpResponse(template.render(authors_data, request))
 
 
-def publisher(request):
-    template = loader.get_template('p_library/publishers.html')
-    # books_count = Book.objects.all().count()
-    publishers = Publisher.objects.all()  # .prefetch_related('books')
+# def publisher(request):
+#     template = loader.get_template('p_library/publishers.html')
+#     # books_count = Book.objects.all().count()
+#     publishers = Publisher.objects.all()  # .prefetch_related('books')
 
-    # for publisher in publishers:
-    #     publisher.books = Book.objects.filter(publisher=publisher)
+#     # for publisher in publishers:
+#     #     publisher.books = Book.objects.filter(publisher=publisher)
 
-    publishers_data = {
-        "title": 'Издательства',
-        'publishers': publishers,
-    }
-    return HttpResponse(template.render(publishers_data, request))
+#     publishers_data = {
+#         "title": 'Издательства',
+#         'publishers': publishers,
+#     }
+#     return HttpResponse(template.render(publishers_data, request))
 
 
 class AuthorEdit(CreateView):
@@ -224,16 +238,16 @@ def books_authors_create_many(request):
 # для работы воторой нежно urls внести изменение
 
 
-def book_detail(request, slug):
-    books = Book.objects.filter(slug__iexact=slug)
-    if books.count() == 1:
-        book_data = {
-            'title': books.first().title,
-            'book': books.first()
-        }
-        return render(request, 'p_library/book.html', context=book_data)
-    else:
-        return HttpResponseNotFound('<h1>No Page Here</h1>')
+# def book_detail(request, slug):
+#     books = Book.objects.filter(slug__iexact=slug)
+#     if books.count() == 1:
+#         book_data = {
+#             'title': books.first().title,
+#             'book': books.first()
+#         }
+#         return render(request, 'p_library/book.html', context=book_data)
+#     else:
+#         return HttpResponseNotFound('<h1>No Page Here</h1>')
 
 # Эту вьюху заменили на аналогичную с миксинами
 # class BookDetail(View):
@@ -273,10 +287,17 @@ class BooksCopyDetail(View):
 
     def get(self, request, uuid):
         obj = get_object_or_404(self.model, uuid=uuid)
-        obj_data = {
+        context = {
             self.model.__name__.lower(): obj
         }
-        return render(request, self.template, context=obj_data)
+
+        if request.user.is_authenticated:
+            context['username'] = request.user.username
+            if UserProfile.objects.filter(user=request.user).count():
+                        context['age'] = f"Возраст посчитаем из дня рождения - {UserProfile.objects.get(user=request.user).birth_date} но потом"
+
+        return render(request, self.template, context=context)
+
 
 class Login(LoginView):
     template_name = 'p_library/login.html'
@@ -291,28 +312,56 @@ class Login(LoginView):
         else:
             return reverse('p_library:library_url')
 
-
-
     # redirect_field_name = reverse('p_library:library_url')
+
 
 class Logout(LogoutView):
     next_page = '/p_library/'
 
-# def login(request):  
-#     if request.method == 'POST':  
-#         form = AuthenticationForm(request=request, data=request.POST)  
-#         if form.is_valid():  
-#             auth.login(request, form.get_user())  
+# def login(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request=request, data=request.POST)
+#         if form.is_valid():
+#             auth.login(request, form.get_user())
 #             return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
 #         else:
 #             # ToDo:
 #             # Добавить сообщение о ошибке лониг/пароль
 #             return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
-#     else:  
-#         context = {'form': AuthenticationForm()}  
-#         return render(request, 'p_library/login.html', context)  
-  
+#     else:
+#         context = {'form': AuthenticationForm()}
+#         return render(request, 'p_library/login.html', context)
 
-# def logout(request):  
-#     auth.logout(request)  
+
+# def logout(request):
+#     auth.logout(request)
 #     return HttpResponseRedirect(reverse_lazy('p_library:library_url'))
+
+
+class RegisterView(FormView):
+    form_class = UserCreationForm
+
+    def form_valid(self, form):
+        form.save()
+        username = form.cleaned_data.get('username')
+        raw_password = form.cleaned_data.get('password1')
+        login(self.request, authenticate(
+            username=username, password=raw_password))
+        return super(RegisterView, self).form_invalid(form)
+
+
+class CreateUserProfile(FormView):
+    form_class = ProfileCreationForm
+    template_name = 'progile-create.html'
+    success_url = reverse_lazy('p_library:library_url')
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            return HttpResponseRedirect(reverse_lazy('p_library:login_url'))
+        return super(CreateUserProfile, self).dispatch(request, *arts, **kwargs)
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        instance.save()
+        return super(CreateUserProfile, self).form_valid(form)
