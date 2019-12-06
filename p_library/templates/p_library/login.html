@@ -3,9 +3,11 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_ul }}
-    <input type="submit" value="Войти">
-</form>
+<div class="container mt-4 mb-4">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Войти">
+    </form>
+</div>
 {% endblock %}
