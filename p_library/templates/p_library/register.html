@@ -1,0 +1,17 @@
+{% extends "p_library/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-4">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Войти">
+    </form>
+    <a href="{% url 'p_library:register_user_url' %}"
+        class="list-group-item-action">
+        Хочу зарегистрироваться
+    </a>
+</div>
+{% endblock %}
