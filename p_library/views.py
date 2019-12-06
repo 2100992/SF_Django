@@ -186,12 +186,14 @@ class AuthorEdit(CreateView):
     template_name = 'p_library/a_edit.html'
 
 
+'''
 class AuthorList(ListView):
     model = Author
     template_name = 'p_library/a_list.html'
 
     # def __init__(self, *args, **kwargs):
     #     print(self)
+'''
 
 
 def author_create_many(request):
@@ -340,6 +342,8 @@ class Logout(LogoutView):
 
 class RegisterView(FormView):
     form_class = UserCreationForm
+    template_name='p_library/register.html'
+    success_url=reverse_lazy('p_library:create_user_profile_url')
 
     def form_valid(self, form):
         form.save()
@@ -347,18 +351,18 @@ class RegisterView(FormView):
         raw_password = form.cleaned_data.get('password1')
         login(self.request, authenticate(
             username=username, password=raw_password))
-        return super(RegisterView, self).form_invalid(form)
+        return super(RegisterView, self).form_valid(form)
 
 
 class CreateUserProfile(FormView):
     form_class = ProfileCreationForm
-    template_name = 'progile-create.html'
+    template_name = 'p_library/profile-create.html'
     success_url = reverse_lazy('p_library:library_url')
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_anonymous:
             return HttpResponseRedirect(reverse_lazy('p_library:login_url'))
-        return super(CreateUserProfile, self).dispatch(request, *arts, **kwargs)
+        return super(CreateUserProfile, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         instance = form.save(commit=False)
