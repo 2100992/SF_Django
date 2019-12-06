@@ -10,14 +10,16 @@ class ObjectDetailMixin:
 
     def get(self, request, slug):
         obj = get_object_or_404(self.model, slug__iexact=slug)
-        obj_data = {
+        context = {
             self.model.__name__.lower(): obj
         }
 
         if request.user.is_authenticated:  
-            obj_data['username'] = request.user.username
+            context['username'] = request.user.username
+            if UserProfile.objects.filter(user=request.user).count():
+                context['age'] = f"Возраст посчитаем из дня рождения - {UserProfile.objects.get(user=request.user).birth_date} но потом"
 
-        return render(request, self.template, context=obj_data)
+        return render(request, self.template, context=context)
 
 
 # Миксин для вывода во вьюху списка значений
@@ -29,14 +31,16 @@ class ObjectsListMixin:
     def get(self, request):
         obj = get_list_or_404(self.model)
         # obj = self.model.objects.all()
-        obj_data = {
+        context = {
             self.model.__name__.lower(): obj,
             'title': self.title
         }
         if request.user.is_authenticated:  
-            obj_data['username'] = request.user.username
-            
-        return render(request, self.template, context=obj_data)
+            context['username'] = request.user.username
+            if UserProfile.objects.filter(user=request.user).count():
+                context['age'] = f"Возраст посчитаем из дня рождения - {UserProfile.objects.get(user=request.user).birth_date} но потом"
+
+        return render(request, self.template, context=context)
 
 # Миксин для вывода во вьюху фильтрованного списка значений
 # class ObjectsFiltredListMixin:
