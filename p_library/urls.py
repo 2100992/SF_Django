@@ -9,6 +9,8 @@ from p_library.views import BooksCopies, BooksCopyDetail
 from p_library.views import Login, Logout
 from p_library.views import RegisterView, CreateUserProfile
 
+from allauth.account.views import login, logout
+
 from django.urls import path
 # from . import views
 # from my_site.urls import urlpatterns
@@ -49,16 +51,20 @@ urlpatterns = [
     path('books-copy/<str:uuid>/', BooksCopyDetail.as_view(),
         name='copy_detail_url'),
 
-    path('login/', Login.as_view(),
-        name='login_url'),
-    path('logout/', Logout.as_view(),
-        name='logout_url'),
-
     path('register-user/', RegisterView.as_view(),
         name='register_user_url'),
     path('create-user-profile', CreateUserProfile.as_view(),
         name='create_user_profile_url'),
+
+    path('login/', login, name='login_url'),
+    path('logout/', logout, name='logout_url'),
 ]
+
+    # path('my_login/', Login.as_view(),
+    #     name='my_login_url'),
+    # path('my_logout/', Logout.as_view(),
+    #     name='my_logout_url'),
+
 
 # path('book_author/create_many/', books_authors_create_many, name='books_authors_create_many'),
 # path('author/create/', views.AuthorEdit.as_view(), name='author_create'),

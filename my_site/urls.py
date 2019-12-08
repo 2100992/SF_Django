@@ -25,6 +25,7 @@ urlpatterns = [
     path('', index),
     path('p_library/', include('p_library.urls')),
     path('my_first_aid_kit/', include('my_first_aid_kit.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

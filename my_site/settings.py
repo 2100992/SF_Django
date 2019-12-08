@@ -53,7 +53,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'hw-django.herokuapp.com',
-    'localhost'
+    'localhost',
+    '127.0.0.1'
 ]
 
 
@@ -66,9 +67,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  
+
+    'allauth',  
+    'allauth.account',  
+    'allauth.socialaccount',  
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.vk',
+
     'p_library',
     'my_first_aid_kit',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -101,6 +113,12 @@ TEMPLATES = [
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = (  
+    'django.contrib.auth.backends.ModelBackend',  
+    'allauth.account.auth_backends.AuthenticationBackend',  
+)
 
 WSGI_APPLICATION = 'my_site.wsgi.application'
 

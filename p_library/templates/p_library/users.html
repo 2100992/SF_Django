@@ -22,7 +22,13 @@
                 <div class="card">
                     <div class="card-body row">
                         <p class="col-1">{{ forloop.counter }}</p>
-                        <p class="col"><a href="{% url 'p_library:user_detail_url' user.slug %}" class="list-group-item-action">{{ user.full_name }}</a></p>
+                        <p class="col">
+                            {% comment %} {{ user.full_name }} {% endcomment %}
+                            <a  href="{% url 'p_library:user_detail_url' user.slug %}"
+                                class="list-group-item-action">
+                                {{ user.full_name }}
+                            </a>
+                        </p>
                         <p class="col">{{ user.birth_date }}</p>
                         <p class="col-2">{{ user.library_card }}</p>
                         <p class="col-2">{{ user.description }}</p>

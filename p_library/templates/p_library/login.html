@@ -9,9 +9,19 @@
         {{ form.as_ul }}
         <input type="submit" value="Войти">
     </form>
-    <a href="{% url 'p_library:register_user_url' %}"
-        class="list-group-item-action">
-        Хочу зарегистрироваться
+    <div class="container">
+        <a href="{% url 'p_library:register_user_url' %}"
+            class="list-group-item-action">
+            Хочу зарегистрироваться
     </a>
+    </div>
+
+    <div class="container">
+        <a href="{% url 'p_library:auth_login_url' %}"
+            class="list-group-item-action">
+            Авторизоваться внешним сервисом
+        </a>
+    </div>
+
 </div>
 {% endblock %}

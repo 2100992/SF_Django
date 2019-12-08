@@ -9,5 +9,5 @@
     {% comment %} {{ username }}, ты можешь <a href="{% url 'p_library:logout_url' %}?next=/p_library/">выйти</a> {% endcomment %}
     {{ username }}, ты можешь <a href="{% url 'p_library:logout_url' %}">выйти</a>
 {% else %}  
-    Тебе нужно <a href="{% url 'p_library:login_url' %}">войти</a> на сайт!
+    Тебе нужно <a href="{% url 'p_library:login_url' %}?next=/p_library/">войти</a> на сайт!
 {% endif %} 
