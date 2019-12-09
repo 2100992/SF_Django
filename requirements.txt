@@ -1,6 +1,7 @@
-django
-psycopg2
-dj_database_url
-python_slugify
-django-heroku
-Pillow
+Django==2.2.7
+psycopg2==2.8.4
+dj-database-url==0.5.0
+python-slugify==4.0.0
+django-heroku==0.3.1
+Pillow==6.2.1
+django-allauth==0.40.0
