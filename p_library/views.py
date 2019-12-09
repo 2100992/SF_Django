@@ -25,6 +25,8 @@ from django.contrib import auth
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
 
+from .forms import TagForm
+
 # Create your views here.
 
 
@@ -369,3 +371,16 @@ class CreateUserProfile(FormView):
         instance.user = self.request.user
         instance.save()
         return super(CreateUserProfile, self).form_valid(form)
+
+
+class TagCreate(View):
+    def get(self, request):
+        form = TagForm
+        return render(request, 'p_library/tag_create.html', context={'form': form})
+    
+    def post(self, request):
+        bound_form = TagForm(request.POST)
+        if bound_form.is_valid():
+            new_tag = bound_form.save()
+            return redirect(reverse_lazy('p_library:tag_detail_url', kwargs={'slug': new_tag.slug}))
+        return render(request, 'p_library/tag_create.html', context={'form': bound_form})

@@ -73,12 +73,14 @@ INSTALLED_APPS = [
     'allauth.account',  
     'allauth.socialaccount',  
     'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.vk',
+
 
     'p_library',
     'my_first_aid_kit',
 ]
+
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.vk',
 
 SITE_ID = 1
 

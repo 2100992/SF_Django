@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User  
+from django.contrib.auth.models import User
 
 import uuid
 from slugify import slugify
@@ -114,7 +114,8 @@ class Book(models.Model):
 
 class UserProfile(models.Model):
     # Таблица пользователей библиотеки
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='profile')
     full_name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(default='_', max_length=150, unique=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -159,9 +160,9 @@ class BooksCopy(models.Model):
 
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='employee')
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='employee')
     department = models.CharField(max_length=100)
 
     def __str__(self):
         return self.user.username
-    
