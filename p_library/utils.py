@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from p_library.models import *
+# from django.db import models
+
+from p_library.models import UserProfile
 
 
 class ObjectDetailMixin:
@@ -61,3 +63,14 @@ class ObjectsListMixin:
 
 #         }
 #         return render(request, self.template, context=obj_data)
+
+
+
+# def make_unique_slug(model, text, counter=0):
+#     str_counter = ''
+#     if counter:
+#         str_counter = str(counter)
+#     if model.objects.filter(slug=text+str_counter).count():
+#         counter += 1
+#         text = make_unique_slug(model, text, counter)
+#     return text + str_counter

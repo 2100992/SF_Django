@@ -7,6 +7,8 @@ from slugify import slugify
 
 def make_unique_slug(model, text, counter=0):
     str_counter = ''
+    if text == 'create':
+        text = 'create0'
     if counter:
         str_counter = str(counter)
     if model.objects.filter(slug=text+str_counter).count():
