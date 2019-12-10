@@ -438,28 +438,14 @@
             <object pk="9"></object>
         </field>
     </object>
-    <object model="p_library.user" pk="1">
-        <field name="full_name" type="CharField">Иванов Иван Иванович</field>
-        <field name="slug" type="SlugField">ivanov-ivan-ivanovich</field>
-        <field name="birth_date" type="DateField">
-            <None></None>
-        </field>
-        <field name="library_card" type="CharField">
-            <None></None>
-        </field>
-        <field name="description" type="TextField"></field>
-    </object>
-    <object model="p_library.user" pk="2">
-        <field name="full_name" type="CharField">Петров Петр Петрович</field>
-        <field name="slug" type="SlugField">petrov-petr-petrovich</field>
-        <field name="birth_date" type="DateField">
-            <None></None>
-        </field>
-        <field name="library_card" type="CharField">
-            <None></None>
-        </field>
-        <field name="description" type="TextField"></field>
-    </object>
+
+
+
+
+
+
+
+
     <object model="p_library.bookscopy" pk="1">
         <field name="uuid" type="UUIDField">c8163fe3-a560-4add-85fb-6a46f2a594d0</field>
         <field name="book" rel="ManyToOneRel" to="p_library.book">2</field>
@@ -471,13 +457,17 @@
     <object model="p_library.bookscopy" pk="2">
         <field name="uuid" type="UUIDField">87d1ac2f-0e03-473f-b34f-6d6d7daa58e7</field>
         <field name="book" rel="ManyToOneRel" to="p_library.book">2</field>
-        <field name="holder" rel="ManyToOneRel" to="p_library.user">2</field>
+        <field name="holder" rel="ManyToOneRel" to="p_library.user">
+            <None></None>
+        </field>
         <field name="notes" type="TextField">Новая</field>
     </object>
     <object model="p_library.bookscopy" pk="3">
         <field name="uuid" type="UUIDField">f41e729a-b401-43cb-8113-cf3d5e7c8b95</field>
         <field name="book" rel="ManyToOneRel" to="p_library.book">2</field>
-        <field name="holder" rel="ManyToOneRel" to="p_library.user">1</field>
+        <field name="holder" rel="ManyToOneRel" to="p_library.user">
+            <None></None>
+        </field>
         <field name="notes" type="TextField"></field>
     </object>
     <object model="p_library.bookscopy" pk="4">
@@ -531,19 +521,25 @@
     <object model="p_library.bookscopy" pk="10">
         <field name="uuid" type="UUIDField">99c4868b-5ad9-4de4-b9a8-c3570a68aafa</field>
         <field name="book" rel="ManyToOneRel" to="p_library.book">7</field>
-        <field name="holder" rel="ManyToOneRel" to="p_library.user">2</field>
+        <field name="holder" rel="ManyToOneRel" to="p_library.user">
+            <None></None>
+        </field>
         <field name="notes" type="TextField">Новая</field>
     </object>
     <object model="p_library.bookscopy" pk="11">
         <field name="uuid" type="UUIDField">642fe126-9b4e-4d35-a4b7-db0d5607b1e4</field>
         <field name="book" rel="ManyToOneRel" to="p_library.book">8</field>
-        <field name="holder" rel="ManyToOneRel" to="p_library.user">1</field>
+        <field name="holder" rel="ManyToOneRel" to="p_library.user">
+            <None></None>
+        </field>
         <field name="notes" type="TextField">Новая</field>
     </object>
     <object model="p_library.bookscopy" pk="12">
         <field name="uuid" type="UUIDField">abcd56d6-d196-4ca2-927c-755231744c37</field>
         <field name="book" rel="ManyToOneRel" to="p_library.book">7</field>
-        <field name="holder" rel="ManyToOneRel" to="p_library.user">1</field>
+        <field name="holder" rel="ManyToOneRel" to="p_library.user">
+            <None></None>
+        </field>
         <field name="notes" type="TextField">Экземпляр из горящего танка.
 
 Пора в утиль.</field>
