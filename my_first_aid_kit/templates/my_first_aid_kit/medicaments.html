@@ -13,13 +13,13 @@
                 <th scope="col">Название</th>
                 <th scope="col">Проиводитель</th>
                 <th scope="col">Действующие вещества</th>
-                <th scope="col">Леканственная группа</th>
+                <th scope="col">Лекарственная группа</th>
             </tr>
         </thead>
         <tbody>
             {% for medicament in medicaments %}
             <tr>
-                <th scope="row" class="test1">{{ forloop.counter }}</th>
+                <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ medicament.title }}</td>
                 <td>{{ medicament.drugmaker }}</td>
                 <td>
